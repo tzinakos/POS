@@ -66,3 +66,35 @@ More Specific I created the database, added  "User" , "UserRole", "Table", "Tabl
 #### Sprint Retrospective
 
 This sprint had a bigger workload than I thought. However, I managed to deal with a lot of it and prepared the ground for next sprint work. Next time I need to select my sprint backlog more carefully and do a better time management; Timeboxing for each user story is a good idea.
+
+### <u>Sprint  2</u>
+
+#### Kanban Board at the beginning
+
+![Sprint2 Kanban Board at the beginning](/Images/KanbanBoard-Sprint2_Beginning.png)
+
+#### Sprint Goals
+
+By the end of the second sprint, I need to complete user stories from sprint one, the application must have functionality where new users can update their password, Create "Order", "ProductCategory, "Product", and "Allergen" tables in the database, update GUI for displaying products by category.
+
+More Specific I need to:
+
+- [ ] Complete user Story 2.1
+- [ ] Complete user Story 2.2
+- [ ] Complete user Story 2.3
+- [ ] Complete user Story 2.7
+- [ ] Complete user Story 2.8
+- [ ] Complete user Story 3.1
+- [ ] Complete user Story 3.2
+- [ ] Complete user Story 4.2
+- [ ] Complete user Story 4.5
+- [ ] Complete user Story 4.6
+
+
+#### Kanban Board at the end
+
+
+#### Sprint Review
+
+
+#### Sprint Retrospective
