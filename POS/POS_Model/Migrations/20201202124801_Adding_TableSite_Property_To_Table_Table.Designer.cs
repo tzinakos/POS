@@ -3,110 +3,23 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using POS_Model;
 
 namespace POS_Model.Migrations
 {
     [DbContext(typeof(PosContext))]
-    partial class PosContextModelSnapshot : ModelSnapshot
+    [Migration("20201202124801_Adding_TableSite_Property_To_Table_Table")]
+    partial class Adding_TableSite_Property_To_Table_Table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.0");
-
-            modelBuilder.Entity("POS_Model.Allergen", b =>
-                {
-                    b.Property<int>("AllergenID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("AllergenName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductID")
-                        .HasColumnType("int");
-
-                    b.HasKey("AllergenID");
-
-                    b.HasIndex("ProductID");
-
-                    b.ToTable("Allergens");
-                });
-
-            modelBuilder.Entity("POS_Model.Order", b =>
-                {
-                    b.Property<int>("OrderID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("TableID")
-                        .HasColumnType("int");
-
-                    b.HasKey("OrderID");
-
-                    b.HasIndex("TableID");
-
-                    b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("POS_Model.Product", b =>
-                {
-                    b.Property<int>("ProductID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<int>("ProductCategoryID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ProductDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("ProductPrice")
-                        .HasColumnType("float");
-
-                    b.Property<int>("ProductQuantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProductID");
-
-                    b.HasIndex("ProductCategoryID");
-
-                    b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("POS_Model.ProductCategory", b =>
-                {
-                    b.Property<int>("ProductCategoryID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<int>("OrderID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ProductCategoryName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ProductCategoryID");
-
-                    b.HasIndex("OrderID");
-
-                    b.ToTable("ProductCategories");
-                });
 
             modelBuilder.Entity("POS_Model.Reservation", b =>
                 {
@@ -228,50 +141,6 @@ namespace POS_Model.Migrations
                     b.HasKey("UserRoleID");
 
                     b.ToTable("UserRoles");
-                });
-
-            modelBuilder.Entity("POS_Model.Allergen", b =>
-                {
-                    b.HasOne("POS_Model.Product", "product")
-                        .WithMany()
-                        .HasForeignKey("ProductID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("product");
-                });
-
-            modelBuilder.Entity("POS_Model.Order", b =>
-                {
-                    b.HasOne("POS_Model.Table", "Table")
-                        .WithMany()
-                        .HasForeignKey("TableID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Table");
-                });
-
-            modelBuilder.Entity("POS_Model.Product", b =>
-                {
-                    b.HasOne("POS_Model.ProductCategory", "ProductCategory")
-                        .WithMany()
-                        .HasForeignKey("ProductCategoryID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ProductCategory");
-                });
-
-            modelBuilder.Entity("POS_Model.ProductCategory", b =>
-                {
-                    b.HasOne("POS_Model.Order", "Order")
-                        .WithMany()
-                        .HasForeignKey("OrderID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("POS_Model.Reservation", b =>

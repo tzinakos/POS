@@ -39,25 +39,47 @@ namespace POS_Business
             } 
         }
 
-        public void Update(int id, string name, string password, string points, UserRole userRole, bool isActive)
+        public void Update(int id, string name, string password, string points, int userRoleID, bool isActive)
         {
             using (var db = new PosContext())
             {
                 db.Users.Where(i => i.UserID == id).FirstOrDefault().UserName = name;
                 db.Users.Where(i => i.UserID == id).FirstOrDefault().UserPassword = password;
                 db.Users.Where(i => i.UserID == id).FirstOrDefault().UserPoints = points;
-                db.Users.Where(i => i.UserID == id).FirstOrDefault().UserRole = userRole;
                 db.Users.Where(i => i.UserID == id).FirstOrDefault().IsActive = isActive;
-                db.Users.Where(i => i.UserID == id).FirstOrDefault().UserRoleID = userRole.UserRoleID;
+                db.Users.Where(i => i.UserID == id).FirstOrDefault().UserRoleID = userRoleID;
                 db.SaveChanges();
             }
         }
-        public override void Delete(int id)
+        public  void Delete(int id)
         {
             using (var db = new PosContext())
             {
                 db.Users.Remove(db.Users.Find(id));
                 db.SaveChanges();
+            }
+        }
+
+        public void SelectUser(string name)
+        {
+            using (var db = new PosContext())
+            {
+                selectedUser = db.Users.Where(u => u.UserName == name).FirstOrDefault();
+            }
+        }
+
+        public string GetUserRole(int userID)
+        {
+            using (var db = new PosContext())
+            {
+
+                return (from u in db.Users
+                        join ur in db.UserRoles
+                        on u.UserRoleID equals ur.UserRoleID
+                        where u.UserID == userID
+                        select ur.UserRoleName).FirstOrDefault();
+                    
+                    
             }
         }
     }

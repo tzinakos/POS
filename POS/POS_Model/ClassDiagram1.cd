@@ -1,2 +1,56 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram /> 
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="POS_Model.PosContext">
+    <Position X="13.25" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAQAAAAAAEAAAQAAAAAAAAAgAAEAAAAAAAAA=</HashCode>
+      <FileName>Model.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="POS_Model.User">
+    <Position X="8.75" Y="4" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAEAAAQAgAAAAAAAgAAQACAEIAAAA=</HashCode>
+      <FileName>Model.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="UserRole" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="POS_Model.UserRole">
+    <Position X="9" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAIAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Model.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="POS_Model.Table">
+    <Position X="4.25" Y="0.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAgAAAAEAAAAAgAAAAECAAAAAAAAQAAgAA=</HashCode>
+      <FileName>Model.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="TableStatus" />
+      <Property Name="Users" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="POS_Model.TableStatus">
+    <Position X="5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAAAAAgAAAAAAAAAgAA=</HashCode>
+      <FileName>Model.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="POS_Model.Reservation">
+    <Position X="0.5" Y="4.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACEAgAAAAAAAAAAAQAAAAAAEAEAAAAAAAAEAAAA=</HashCode>
+      <FileName>Model.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Table" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

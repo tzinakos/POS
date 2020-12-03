@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:POS_UI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="My POS" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -14,16 +14,25 @@
 
         <!--Creating left sidebar-->
         <ListBox Style="{DynamicResource ListBoxStyle1}" Grid.Column="0" Width="150" x:Name="usersList"
-                 Background="#FF232B2B" BorderThickness="0,0,2,0" BorderBrush="black"
-                 HorizontalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                 Background="#FF232B2B" BorderThickness="0,0,2,0" BorderBrush="black" IsEnabled="True"
+                 HorizontalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                 SelectionChanged="usersList_SelectionChanged" Foreground="white" HorizontalAlignment="Center">
 
             <Label Style="{DynamicResource LabelStyle1}" Height="50" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
-                   BorderThickness="0,0,0,2" BorderBrush="white"
-                   Width="150" Foreground="White" FontSize="20">
-                Log In
+                   BorderThickness="0,0,0,2" BorderBrush="white" x:Name="nameLabel"
+                   Width="150" Foreground="White" FontSize="20" HorizontalAlignment="Center">
+               Log In
             </Label>
             <Button Width="150" Height="50" Background="Transparent" BorderThickness="0,0,0,1"
-                    BorderBrush="white" Click="Button_Click"/>
+                    BorderBrush="white" Click="Button_Click" Foreground="White" Content="Add User"
+                    HorizontalAlignment="Center" Name="userButton"/>
+            <ListBoxItem Style="{DynamicResource usersListBoxStyle}" Content="user 1">
+                
+            </ListBoxItem>
+            <ListBoxItem Style="{DynamicResource usersListBoxStyle}" Content="user 1">
+
+            </ListBoxItem>
+
         </ListBox>
         <Popup  IsOpen="False" Name="AddUserPopUp" HorizontalAlignment="Left"   
                 VerticalAlignment="Center" Placement="MousePoint">
@@ -93,14 +102,14 @@
                 <Button x:Name="ACancelButton" Content="Cancel" BorderThickness="0,0,0,3"
                         Grid.Row="2" Grid.Column="1" Width="100" Height="30" HorizontalAlignment="Center"
                         Background="Transparent"  Foreground="White"
-                        BorderBrush="AliceBlue" Click="ACancelButton_Click"  >
+                        BorderBrush="AliceBlue" Click="ACancelButton_Click" >
 
                 </Button>
 
             </Grid>
 
         </Popup>
-       
+
 
 
         <!--Column2 Will Have 2 Rows the row (0) will be constanly available-->
@@ -116,7 +125,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" Background="#353839">
+            <Grid Grid.Row="0" Background="#414a4c">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition Width="2*"/>
@@ -124,7 +133,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Button x:Name="HumBurger" Grid.Column="0"
-                        Content="Open" HorizontalAlignment="Left" Height="50" VerticalAlignment="Bottom">
+                        Content="Open" HorizontalAlignment="Left" Height="50" VerticalAlignment="Bottom" Click="HumBurger_Click">
                 </Button>
 
                 <Label Grid.Column="1" Content="My POS"
@@ -134,8 +143,507 @@
                 </Label>
 
                 <Button x:Name="dummyButton" Grid.Column="2"
-                        Content="Close" HorizontalAlignment="Right">
+                        Content="Close" HorizontalAlignment="Left" Height="50" Margin="132,0,0,0" VerticalAlignment="Bottom" Click="dummyButton_Click">
                 </Button>
+
+
+            </Grid>
+                <!-- Main Custom Navigation Window-->
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0" x:Name="userLogInGrid"/>
+                    <ColumnDefinition Width="*" x:Name="tablesGrid" />
+                    <ColumnDefinition Width="0" x:Name="productsGrid"/>
+                    <ColumnDefinition Width="auto" x:Name="reservationDetailsGrid"/>
+                    <ColumnDefinition Width="0" x:Name="orderGrid"/>
+                </Grid.ColumnDefinitions>
+
+
+                <!-- reservationDetail Panel -->
+                <StackPanel Style="{DynamicResource StackPanelStyle1}" Grid.Column="3" Background="#414a4c" 
+                            x:Name="reservationPanel" IsEnabled="False" HorizontalAlignment="Right">
+                    <Grid Height="390">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions >
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Content="Table 1" x:Name="tableNameLable"
+                               HorizontalContentAlignment="Center"
+                               FontSize="20" Foreground="White">
+                        </Label>
+                        
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="Name:"
+                               HorizontalContentAlignment="left"
+                               VerticalContentAlignment="Bottom"
+                               Height="50"
+                               FontSize="15" Foreground="White">
+                            </Label>
+
+                            <TextBox Grid.Column="1" x:Name="ReservationName"
+                                     HorizontalAlignment="Stretch"
+                                     HorizontalContentAlignment="Center"
+                                     VerticalContentAlignment="Bottom"
+                                     FontSize="15" Foreground="White"
+                                     Background="Transparent"
+                                     BorderThickness="0,0,0,1"
+                                     BorderBrush="White">
+                                
+                            </TextBox>
+                        </Grid>
+
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="Phone:"
+                               HorizontalContentAlignment="left"
+                               VerticalContentAlignment="Bottom"
+                               Height="50"
+                               FontSize="15" Foreground="White">
+                            </Label>
+
+                            <TextBox Grid.Column="1" x:Name="ReservationPhone"
+                                     HorizontalAlignment="Stretch"
+                                     HorizontalContentAlignment="Center"
+                                     VerticalContentAlignment="Bottom"
+                                     FontSize="12" Foreground="White"
+                                     Background="Transparent"
+                                     BorderThickness="0,0,0,1"
+                                     BorderBrush="White">
+
+                            </TextBox>
+                        </Grid>
+                        <Grid Grid.Row="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="N.Guests:"
+                               HorizontalContentAlignment="left"
+                               VerticalContentAlignment="Bottom"
+                               Height="50"
+                               FontSize="15" Foreground="White">
+                            </Label>
+
+                            <TextBox Grid.Column="1" x:Name="ReservationNoOfGuests"
+                                     HorizontalAlignment="Stretch"
+                                     HorizontalContentAlignment="Center"
+                                     VerticalContentAlignment="Bottom"
+                                     FontSize="15" Foreground="White"
+                                     Background="Transparent"
+                                     BorderThickness="0,0,0,1"
+                                     BorderBrush="White">
+
+                            </TextBox>
+                        </Grid>
+                        <Grid Grid.Row="4" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="Date:"
+                               HorizontalContentAlignment="Left"
+                               VerticalContentAlignment="Bottom"
+                               Height="50"
+                               FontSize="15" Foreground="White">
+                            </Label>
+
+                            <DatePicker Grid.Column="1" Text="Select Starting Date"  Background="Transparent" 
+                            BorderThickness="0" x:Name="ReservationdatePicker" HorizontalAlignment="Stretch"
+                             Height="30" VerticalAlignment="Bottom" 
+                            HorizontalContentAlignment="Stretch">
+                                
+                            </DatePicker>
+                        </Grid>
+
+                        <Button Grid.Row="5" Content="Reserve"
+                                Height="50" Foreground="White"
+                                Background="Transparent"
+                                BorderBrush="White"
+                                BorderThickness="1" Margin="5" Click="Button_Click_1">
+                            
+                        </Button>
+                    </Grid>
+
+                </StackPanel>
+
+                <Grid Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"
+                      Width="300" Height="200" >
+
+
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF414A4C"/>
+                            <GradientStop Color="#FF232B2B" Offset="0.67"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label x:Name="userNameLabel" Content="Hi, Select User To Continue"  Grid.Row="0"
+                           VerticalAlignment="Center" HorizontalAlignment="Center"
+                           FontSize="15" Foreground="white">
+                    </Label>
+                    <PasswordBox x:Name="Password" Grid.Row="1" HorizontalAlignment="Center"
+                                 Height="30" Width="250"  Opacity=".5" IsEnabled="false"
+                                 BorderThickness="0,0,0,2" VerticalContentAlignment="Bottom"
+                                 Background="Transparent" Foreground="White" BorderBrush="AliceBlue"
+                                 HorizontalContentAlignment="Center">
+
+                    </PasswordBox>
+                    <Button x:Name="LogIn" Content="Log In" BorderThickness="1,1,1,1"
+                        Grid.Row="2" Width="100" Height="30" HorizontalAlignment="Center"
+                        Background="Transparent"  Foreground="White"
+                        BorderBrush="AliceBlue" IsEnabled="false" Opacity=".5" Click="LogIn_Click">
+
+                    </Button>
+
+                </Grid>
+
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="8*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <ListBox Grid.Row="1"  HorizontalContentAlignment="Center" HorizontalAlignment="Stretch"
+                             VerticalAlignment="Bottom" Foreground="White" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                              BorderThickness="0" FontSize="20" Margin="0" Padding="0" 
+                             x:Name="tableSiteList" SelectionChanged="tableSiteList_SelectionChanged" >
+                        
+                        <ListBox.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF414A4C"/>
+                                <GradientStop Color="#FF232B2B" Offset="0.67"/>
+                            </LinearGradientBrush>
+                        </ListBox.Background>
+                        <ListBox.ItemsPanel >
+                            <ItemsPanelTemplate>
+                                <WrapPanel IsItemsHost="True" HorizontalAlignment="Center"/>
+                                
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBoxItem Margin="0" Padding="0" 
+                                     BorderThickness="0" 
+                                     Content="In" MinWidth="215" HorizontalContentAlignment="Center"/>
+                        <ListBoxItem Margin="0,0,0,0" MinWidth="220" Content="Out"
+                                     HorizontalContentAlignment="Center"/>
+                        <ListBoxItem Margin="0" MinWidth="215" BorderThickness="0" Content="Bar"
+                                     HorizontalContentAlignment="Center"/>
+                    </ListBox>
+
+                    <ListBox x:Name="tableList" Grid.Row="0" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                             VerticalAlignment="Top" Margin="10,10,10,10" BorderThickness="0" 
+                             Background="Transparent"  MouseDoubleClick="tableList_MouseDoubleClick" 
+                             SelectionChanged="tableList_SelectionChanged" MouseRightButtonDown="tableList_MouseRightButtonDown" 
+                             Grid.RowSpan="2" HorizontalAlignment="Stretch">
+
+                        <ListBox.ItemsPanel >
+                            <ItemsPanelTemplate>
+                                <WrapPanel IsItemsHost="True" Width="auto" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+
+                        <!--<Button Content="Add Table" Background="Transparent"
+                                BorderThickness="2" Width="80" Height="80"
+                                Foreground="White"></Button>-->
+
+                    </ListBox>
+                    <Popup  IsOpen="False" Name="doubleClickOnTable" HorizontalAlignment="Left"   
+                VerticalAlignment="Center" Placement="MousePoint">
+
+                        <Grid  Width="100" Height="100" Margin="1,0,1,2">
+                            <Grid.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF414A4C"/>
+                                    <GradientStop Color="#FF232B2B" Offset="0.67"/>
+                                </LinearGradientBrush>
+                            </Grid.Background>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <Button x:Name="ReserveTable" Content="Cancel Reservation" BorderThickness="0,0,0,1"
+                        Grid.Row="0"  Width="80" Height="30" HorizontalAlignment="Center"
+                        Background="Transparent"  Foreground="White"
+                        BorderBrush="AliceBlue" Click="ReserveTable_Click" >
+
+                            </Button>
+                            <Button x:Name="UpdateTable" Content="Update Table" BorderThickness="0,0,0,1"
+                        Grid.Row="1" Width="80" Height="30" HorizontalAlignment="Center"
+                        Background="Transparent"  Foreground="White"
+                        BorderBrush="AliceBlue" Click="UpdateTable_Click" >
+
+                            </Button>
+                            <Button x:Name="DeleteTable" Content="Delete Table" BorderThickness="0,0,0,1"
+                        Grid.Row="2" Width="80" Height="30" HorizontalAlignment="Center"
+                        Background="Transparent"  Foreground="White"
+                        BorderBrush="AliceBlue" Click="DeleteTable_Click" >
+
+                            </Button>
+                            <Button x:Name="Cancel" Content="Cancel" BorderThickness="0,0,0,1"
+                        Grid.Row="3" Width="80" Height="30" HorizontalAlignment="Center"
+                        Background="Transparent"  Foreground="White"
+                        BorderBrush="AliceBlue" Click="Cancel_Click" >
+
+                            </Button>
+
+                        </Grid>
+
+                    </Popup>
+                    <Popup  IsOpen="False" Name="AddTablePopUp" HorizontalAlignment="Left"   
+                VerticalAlignment="Center" Placement="MousePoint">
+
+                        <Grid  Width="400" Height="200" Margin="1,0,1,2">
+                            <Grid.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF414A4C"/>
+                                    <GradientStop Color="#FF232B2B" Offset="0.67"/>
+                                </LinearGradientBrush>
+                            </Grid.Background>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+
+                            <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0"
+                                   Foreground="White" Opacity=".5">
+                                Table Name
+                            </Label>
+
+                            <TextBox x:Name="tableName" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center"
+                                     Text="" Height="30" Width="150"  Margin="0,0,0,0" HorizontalContentAlignment="Center"
+                                     BorderThickness="0,0,0,2" VerticalContentAlignment="Bottom" VerticalAlignment="bottom"
+                                     Background="Transparent" Foreground="White" BorderBrush="AliceBlue">
+
+                            </TextBox>
+
+                            <Label Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Foreground="White" Opacity=".5">
+                                Select a Site
+                            </Label>
+
+                            <ComboBox Style="{DynamicResource ComboBoxStyle1}" x:Name="tableSiteComboBox" 
+                                      Grid.Column="1"  HorizontalAlignment="Center" 
+                                      Grid.Row="0" VerticalAlignment="Bottom" Width="150"  Height="30"
+                                      BorderBrush="White" Opacity="1" Padding ="0,0,0,3" BorderThickness="0,0,0,2" 
+                                      VerticalContentAlignment="Bottom" Foreground="White"
+                                      HorizontalContentAlignment="Center" >
+
+                                <ComboBoxItem Content ="In" Foreground="black" IsSelected="True"></ComboBoxItem>
+                                <ComboBoxItem Content ="Out" Foreground="black"></ComboBoxItem>
+                                <ComboBoxItem Content ="Bar" Foreground="black"></ComboBoxItem>
+                            </ComboBox>
+
+                            <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Foreground="White" Opacity=".5">
+                                Table Seats
+                            </Label>
+
+                            <TextBox x:Name="tableSeats" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center"
+                                     Text="" Height="30" Width="150"  Margin="0,0,0,0" HorizontalContentAlignment="Center"
+                                     BorderThickness="0,0,0,2" VerticalContentAlignment="Bottom" VerticalAlignment="bottom"
+                                     Background="Transparent" Foreground="White" BorderBrush="AliceBlue">
+
+                            </TextBox>
+
+                            <Button x:Name="CreateTable" Content="Create Table" BorderThickness="0,0,0,3"
+                                    Grid.Row="2" Grid.Column="0" Width="100" Height="30" HorizontalAlignment="Center"
+                                    Background="Transparent"  Foreground="White"
+                                    BorderBrush="AliceBlue" Click="CreateTable_Click" >
+                            </Button>
+                            <Button x:Name="CreateTableCancel" Content="Cancel" BorderThickness="0,0,0,3"
+                                    Grid.Row="2" Grid.Column="1" Width="100" Height="30" HorizontalAlignment="Center"
+                                    Background="Transparent"  Foreground="White"
+                                    BorderBrush="AliceBlue" Click="CreateTableCancel_Click">
+                            </Button>
+
+                        </Grid>
+
+                    </Popup>
+
+                    <!-- Update Table PopUp-->
+                    <Popup  IsOpen="False" Name="UpdateTablePopUp" HorizontalAlignment="Left"   
+                VerticalAlignment="Center" Placement="MousePoint">
+
+                        <Grid  Width="400" Height="200" Margin="1,0,1,2">
+                            <Grid.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF414A4C"/>
+                                    <GradientStop Color="#FF232B2B" Offset="0.67"/>
+                                </LinearGradientBrush>
+                            </Grid.Background>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+
+                            <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0"
+                                   Foreground="White" Opacity=".5">
+                                Table Name
+                            </Label>
+
+                            <TextBox x:Name="updateTableName" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center"
+                                     Text="" Height="30" Width="150"  Margin="0,0,0,0" HorizontalContentAlignment="Center"
+                                     BorderThickness="0,0,0,2" VerticalContentAlignment="Bottom" VerticalAlignment="bottom"
+                                     Background="Transparent" Foreground="White" BorderBrush="AliceBlue">
+
+                            </TextBox>
+
+                            <Label Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Foreground="White" Opacity=".5">
+                                Select a Site
+                            </Label>
+
+                            <ComboBox Style="{DynamicResource ComboBoxStyle1}" x:Name="updateTableSiteComboBox" 
+                                      Grid.Column="1"  HorizontalAlignment="Center" 
+                                      Grid.Row="0" VerticalAlignment="Bottom" Width="150"  Height="30"
+                                      BorderBrush="White" Opacity="1" Padding ="0,0,0,3" BorderThickness="0,0,0,2" 
+                                      VerticalContentAlignment="Bottom" Foreground="White"
+                                      HorizontalContentAlignment="Center" >
+
+                                <ComboBoxItem Content ="In" Foreground="black" IsSelected="True"></ComboBoxItem>
+                                <ComboBoxItem Content ="Out" Foreground="black"></ComboBoxItem>
+                                <ComboBoxItem Content ="Bar" Foreground="black"></ComboBoxItem>
+                            </ComboBox>
+
+                            <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Foreground="White" Opacity=".5">
+                                Table Seats
+                            </Label>
+
+                            <TextBox x:Name="updateTableSeats" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center"
+                                     Text="" Height="30" Width="150"  Margin="0,0,0,0" HorizontalContentAlignment="Center"
+                                     BorderThickness="0,0,0,2" VerticalContentAlignment="Bottom" VerticalAlignment="bottom"
+                                     Background="Transparent" Foreground="White" BorderBrush="AliceBlue">
+
+                            </TextBox>
+
+                            <Button x:Name="UpdateTableButton" Content="Update Table" BorderThickness="0,0,0,3"
+                                    Grid.Row="2" Grid.Column="0" Width="100" Height="30" HorizontalAlignment="Center"
+                                    Background="Transparent"  Foreground="White"
+                                    BorderBrush="AliceBlue" Click="UpdateTableButton_Click"  >
+                            </Button>
+                            <Button x:Name="updateTableCancel" Content="Cancel" BorderThickness="0,0,0,3"
+                                    Grid.Row="2" Grid.Column="1" Width="100" Height="30" HorizontalAlignment="Center"
+                                    Background="Transparent"  Foreground="White"
+                                    BorderBrush="AliceBlue" Click="updateTableCancel_Click" >
+                            </Button>
+
+                        </Grid>
+
+                    </Popup>
+                    
+                    <!--User Password Change Popup-->
+                    <Popup  IsOpen="False" Name="ChangePasswordPopUp" HorizontalAlignment="Left"   
+                VerticalAlignment="Center" Placement="MousePoint">
+
+                        <Grid  Width="400" Height="200" Margin="1,0,1,2">
+                            <Grid.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF414A4C"/>
+                                    <GradientStop Color="#FF232B2B" Offset="0.67"/>
+                                </LinearGradientBrush>
+                            </Grid.Background>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+
+
+
+
+                            <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" 
+                                   VerticalAlignment="top" Margin="0,5,0,0"
+                                   Foreground="White" Opacity=".5">
+                                   Old Password
+                            </Label>
+
+                            <PasswordBox x:Name="oldPassword" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center"
+                                         Height="30" Width="150"  Margin="0,0,0,0"
+                                         BorderThickness="0,0,0,2" VerticalContentAlignment="Bottom"
+                                         Background="Transparent" Foreground="White" BorderBrush="AliceBlue">
+                            </PasswordBox>
+                            <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" 
+                                   VerticalAlignment="top" Margin="0,5,0,0"
+                                   Foreground="White" Opacity=".5">
+                                   New Password
+                            </Label>
+
+                            <PasswordBox x:Name="newPassword" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center"
+                                         Height="30" Width="150"  Margin="0,0,0,0"
+                                         BorderThickness="0,0,0,2" VerticalContentAlignment="Bottom"
+                                         Background="Transparent" Foreground="White" BorderBrush="AliceBlue">
+                            </PasswordBox>
+
+                            <Label Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" 
+                                   VerticalAlignment="top" Margin="0,5,0,0"
+                                   Foreground="White" Opacity=".5">
+                                Repeat New Password
+                            </Label>
+
+                            <PasswordBox x:Name="repeatNewPassword" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"
+                                         Height="30" Width="150"  Margin="0,0,0,0"
+                                         BorderThickness="0,0,0,2" VerticalContentAlignment="Bottom"
+                                         Background="Transparent" Foreground="White" BorderBrush="AliceBlue">
+                            </PasswordBox>
+
+
+                            <Button x:Name="ChangePassword" Content="Change Password" BorderThickness="0,0,0,3"
+                                    Grid.Row="2" Grid.Column="0" Width="100" Height="30" HorizontalAlignment="Center"
+                                    Background="Transparent"  Foreground="White"
+                                    BorderBrush="AliceBlue" Click="ChangePassword_Click" >
+                            </Button>
+
+                            <Button x:Name="cancelChangePassword" Content="Cancel" BorderThickness="0,0,0,3"
+                                    Grid.Row="2" Grid.Column="1" Width="100" Height="30" HorizontalAlignment="Center"
+                                    Background="Transparent"  Foreground="White"
+                                    BorderBrush="AliceBlue" Click="cancelChangePassword_Click" >
+                            </Button>
+
+                        </Grid>
+
+                    </Popup>
+
+                </Grid>
 
 
             </Grid>
@@ -147,7 +655,7 @@
 
 
 
-        
+
 
 
 

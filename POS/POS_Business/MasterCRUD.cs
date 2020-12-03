@@ -22,7 +22,29 @@ namespace POS_Business
             //    db.UserRoles.Add(sheff);
             //    db.SaveChanges();
             //}
-
+            using (var db = new PosContext())
+            {
+                //TableStatus free = new TableStatus { TableStatusName = "Open" };
+                //db.TableStatuses.Add(free);
+                //db.SaveChanges();
+                //Table table1 = new Table { TableName = "Table 9", UserID = 16, TableStatusID = 2, TableSeats = 4, TableSite = "In" };
+                //Table table2 = new Table { TableName = "Table 2", UserID = 16, TableStatusID = 1, TableSeats = 4, TableSite = "In" };
+                //Table table3 = new Table { TableName = "Table 3", UserID = 16, TableStatusID = 1, TableSeats = 4, TableSite = "In" };
+                //Table table4 = new Table { TableName = "Table 4", UserID = 16, TableStatusID = 1, TableSeats = 4, TableSite = "In" };
+                //Table table5 = new Table { TableName = "Table 5", UserID = 16, TableStatusID = 1, TableSeats = 4, TableSite = "Out" };
+                //Table table6 = new Table { TableName = "Table 6", UserID = 16, TableStatusID = 1, TableSeats = 4, TableSite = "Out" };
+                //Table table7 = new Table { TableName = "Table 7", UserID = 16, TableStatusID = 1, TableSeats = 4, TableSite = "Out" };
+                //Table table8 = new Table { TableName = "Table 8", UserID = 16, TableStatusID = 1, TableSeats = 4, TableSite = "Out" };
+                //db.Tables.Add(table1);
+                //db.Tables.Add(table2);
+                //db.Tables.Add(table3);
+                //db.Tables.Add(table4);
+                //db.Tables.Add(table5);
+                //db.Tables.Add(table6);
+                //db.Tables.Add(table7);
+                //db.Tables.Add(table8);
+                //db.SaveChanges();
+            }
            
         }
     }
@@ -38,7 +60,6 @@ namespace POS_Business
         public Table selectedTable { get; set; }
 
         public abstract void Read();
-        public abstract void Delete(int id);
 
         public void GetUserRoles()
         {
@@ -47,5 +68,7 @@ namespace POS_Business
                 userRolesList = db.UserRoles.Select(x => x).ToList();
             }
         }
+
+        
     }
 }

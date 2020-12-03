@@ -24,7 +24,7 @@ namespace POS_Test
         {
             using (var db = new PosContext())
             {
-                if (db.Users.Count() >= 1)
+                if (db.Users.Count() >= 5)
                 {
                     db.Users.Remove(db.Users.Where(x => x.UserName == "testName").FirstOrDefault());
                     db.SaveChanges();
@@ -41,7 +41,7 @@ namespace POS_Test
             {
                 beforeCount = db.Users.Count();
 
-                userCRUD.Create(TestUser.UserRoleID, TestUser.UserName, TestUser.UserPassword, TestUser.StartDate);
+                userCRUD.Create("Manager", TestUser.UserName, TestUser.UserPassword, TestUser.StartDate);
 
                 afterCount = db.Users.Count();
                 

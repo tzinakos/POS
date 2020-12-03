@@ -56,7 +56,7 @@ More Specific I need to:
 
 #### Kanban Board at the end
 
-![Sprint1 Kanban Board at the end](/Images/KanbanBoard-Sprint2_Beginning.png)
+![Sprint1 Kanban Board at the end](/Images/KanbanBoard-Sprint1_End.png)
 #### Sprint Review
 
 In this sprint I did not manage to complete all user stories. The user stories that I completed where 1.1 -> 1.7 and 2.4 -> 2.6.
@@ -79,22 +79,30 @@ By the end of the second sprint, I need to complete user stories from sprint one
 
 More Specific I need to:
 
-- [ ] Complete user Story 2.1
-- [ ] Complete user Story 2.2
-- [ ] Complete user Story 2.3
-- [ ] Complete user Story 2.7
-- [ ] Complete user Story 2.8
-- [ ] Complete user Story 3.1
-- [ ] Complete user Story 3.2
-- [ ] Complete user Story 4.2
-- [ ] Complete user Story 4.5
+- [x] Complete user Story 2.1
+- [x] Complete user Story 2.2
+- [x] Complete user Story 2.3
+- [x] Complete user Story 2.7
+- [x] Complete user Story 2.8
+- [x] Complete user Story 3.1
+- [x] Complete user Story 3.2
+- [x] Complete user Story 4.2
+- [x] Complete user Story 4.5
 - [ ] Complete user Story 4.6
 
 
 #### Kanban Board at the end
-
+![Sprint2 Kanban Board at the beginning](/Images/KanbanBoard-Sprint2_End.png)
 
 #### Sprint Review
 
+In the second Sprint I managed to complete user stories from sprint one, added functionality so that new users can update their password, Created "Order", "ProductCategory, "Product", and "Allergen" tables in the database, and update GUI for displaying products by category.
+
 
 #### Sprint Retrospective
+
+In terms of time management sprint 2 was better than sprint 1. I managed to complete a lot of user stories. However, since the user stories were many and the time little, the quality was not as good as aimed. In this sprint I used Timeboxing which helped me with time management. 
+
+In this Sprint I learned how to create horizontal listbox views. Moreover, I learned how to add style and event handlers to generated ListBoxItems in my listbox
+
+Next Time I would like to take less user stories and upscale the quality of my work.

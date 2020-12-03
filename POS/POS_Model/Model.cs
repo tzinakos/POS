@@ -13,6 +13,10 @@ namespace POS_Model
         public DbSet<Table> Tables { get; set; }
         public DbSet<TableStatus> TableStatuses {get;set;}
         public DbSet<Reservation> Reservations {get;set;}
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<ProductCategory> ProductCategories { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Allergen> Allergens { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB; Initial Catalog=Pos;");
 
@@ -50,6 +54,7 @@ namespace POS_Model
         public int TableID { get; set; }//Table Table Primary Key
         public string TableName { get; set; } 
         public int TableSeats { get; set; }
+        public string TableSite { get; set; }
         //Reference Attributes
         public TableStatus TableStatus { get; set; } // A Table can have one Table Status
         public int TableStatusID { get; set; } //Foreign Key to TableStatus Table
@@ -58,6 +63,7 @@ namespace POS_Model
         public User Users { get; set; } // A Table can have one User
 
         public List<Reservation> Reservations = new List<Reservation>(); // One Table can have many Reservations
+        public List<Order> Orders = new List<Order>();
     }
 
     public class TableStatus
@@ -81,5 +87,55 @@ namespace POS_Model
         public int TableID { get; set; } // Foreign Key to Table Table
         public Table Table { get; set; } // A Reservation can have one Table
         
+    }
+
+    public class Order
+    {
+        //Order Table Attributes
+        public int OrderID { get; set; }
+        public DateTime OrderDate { get; set; }
+    
+        //Reference Atributes
+        public int TableID { get; set; }
+        public Table Table { get; set; }
+
+        public List<ProductCategory> ProductCategories = new List<ProductCategory>();
+    }
+
+    public class ProductCategory
+    {
+        //ProductCategory Attributes
+        public int ProductCategoryID { get; set; }
+        public string ProductCategoryName { get; set; }
+        //Reference Attributes
+        public int OrderID { get; set; }
+        public Order Order { get; set; }
+
+        public List<Product> Products = new List<Product>();
+    }
+
+    public class Product
+    {
+        //Product Table Attributes
+        public int ProductID { get; set; }
+        public string ProductName{ get; set; }
+        public double ProductPrice { get; set; }
+        public string ProductDescription { get; set; }
+        public int ProductQuantity { get; set; }
+
+        //Reference Attributes
+        public ProductCategory ProductCategory { get; set; }
+        public int ProductCategoryID { get; set; }
+
+        public List<Allergen> Allergens = new List<Allergen>();
+    }
+
+    public class Allergen
+    {
+        //Allergen Table Attributes
+        public int AllergenID { get; set; }
+        public string AllergenName { get; set; }
+        public int ProductID { get; set; }
+        public Product product { get; set; }
     }
 }
