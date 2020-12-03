@@ -7,7 +7,7 @@ using POS_Model;
 
 namespace POS_Business
 {
-    class AllergenCRUD : MasterCRUD
+    public class AllergenCRUD : MasterCRUD
     {
         public override void Read()
         {

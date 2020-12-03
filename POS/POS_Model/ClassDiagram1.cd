@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
-  <Class Name="POS_Model.PosContext">
-    <Position X="13.25" Y="0.5" Width="3" />
+  <Class Name="POS_Model.PosContext" Collapsed="true">
+    <Position X="3.5" Y="5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAACAAAQAAAAAAEAAAQAAAAAAAAAgAAEAAAAAAAAA=</HashCode>
+      <HashCode>AAEAACAAAQAAAAAAEBAAQAAAAAAAAAgAAEAAAAAACAQ=</HashCode>
       <FileName>Model.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="POS_Model.User">
-    <Position X="8.75" Y="4" Width="1.75" />
+    <Position X="13.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQAAAAAAAAAAAAAAEAAAQAgAAAAAAAgAAQACAEIAAAA=</HashCode>
       <FileName>Model.cs</FileName>
@@ -18,16 +18,16 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="POS_Model.UserRole">
-    <Position X="9" Y="1.75" Width="1.5" />
+    <Position X="9.75" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAACAAAAAAAAAAAAAAAAAAIAAAAAAAAAACAAAAAAA=</HashCode>
       <FileName>Model.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="POS_Model.Table">
-    <Position X="4.25" Y="0.75" Width="3" />
+    <Position X="10.5" Y="1.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAACAAAAAgAAAAEAAAAAgAAAAECAAAAAAAAQAAgAA=</HashCode>
+      <HashCode>AAEAACAAAAAgAAAAEAAAAAgAAAAMCAAAAAAAAQAAgAA=</HashCode>
       <FileName>Model.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -36,14 +36,14 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="POS_Model.TableStatus">
-    <Position X="5" Y="4.75" Width="1.5" />
+    <Position X="13.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAAAAAgAAAAAAAAAgAA=</HashCode>
       <FileName>Model.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="POS_Model.Reservation">
-    <Position X="0.5" Y="4.75" Width="3.5" />
+    <Position X="7.25" Y="3.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAACEAgAAAAAAAAAAAQAAAAAAEAEAAAAAAAAEAAAA=</HashCode>
       <FileName>Model.cs</FileName>
@@ -51,6 +51,41 @@
     <ShowAsAssociation>
       <Property Name="Table" />
     </ShowAsAssociation>
+  </Class>
+  <Class Name="POS_Model.Order">
+    <Position X="7.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAABAAAAAAAAAAAAAAQAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Table" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="POS_Model.ProductCategory">
+    <Position X="1" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAECAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Model.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="POS_Model.Product">
+    <Position X="4.25" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAgAAAAACgAABAAAAAAAAAAAAAEAIGAA=</HashCode>
+      <FileName>Model.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Allergen" />
+      <Property Name="ProductCategory" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="POS_Model.Allergen">
+    <Position X="1" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAgAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Model.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

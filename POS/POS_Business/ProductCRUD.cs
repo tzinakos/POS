@@ -6,7 +6,7 @@ using POS_Model;
 
 namespace POS_Business
 {
-    class ProductCRUD : MasterCRUD
+    public class ProductCRUD : MasterCRUD
     {
         public override void Read()
         {
