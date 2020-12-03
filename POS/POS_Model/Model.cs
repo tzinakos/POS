@@ -99,7 +99,7 @@ namespace POS_Model
         public int TableID { get; set; }
         public Table Table { get; set; }
 
-        public List<ProductCategory> ProductCategories = new List<ProductCategory>();
+        
     }
 
     public class ProductCategory
@@ -108,8 +108,6 @@ namespace POS_Model
         public int ProductCategoryID { get; set; }
         public string ProductCategoryName { get; set; }
         //Reference Attributes
-        public int OrderID { get; set; }
-        public Order Order { get; set; }
 
         public List<Product> Products = new List<Product>();
     }
@@ -127,7 +125,9 @@ namespace POS_Model
         public ProductCategory ProductCategory { get; set; }
         public int ProductCategoryID { get; set; }
 
-        public List<Allergen> Allergens = new List<Allergen>();
+        public int AllergenID { get; set; }
+        public Allergen Allergen { get; set; }
+       // public List<Allergen> Allergens = new List<Allergen>();
     }
 
     public class Allergen
@@ -135,7 +135,8 @@ namespace POS_Model
         //Allergen Table Attributes
         public int AllergenID { get; set; }
         public string AllergenName { get; set; }
-        public int ProductID { get; set; }
-        public Product product { get; set; }
+        //public int ProductID { get; set; }
+        //public Product product { get; set; }
+        public List<Product> Allergens = new List<Product>();
     }
 }
