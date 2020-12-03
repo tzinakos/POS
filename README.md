@@ -106,3 +106,30 @@ In terms of time management sprint 2 was better than sprint 1. I managed to comp
 In this Sprint I learned how to create horizontal listbox views. Moreover, I learned how to add style and event handlers to generated ListBoxItems in my listbox
 
 Next Time I would like to take less user stories and upscale the quality of my work.
+### <u>Sprint 3</u>
+
+#### Kanban Board at the beginning
+
+![Sprint3 Kanban Board at the beginning](/Images/KanbanBoard-Sprint3_Beginning.png)
+
+#### Sprint Goals
+
+For The Third Sprint I aim to create CRUD methods for tables "ProductCategories", "Producs", "Allergens", "Orders". Moreover by the end of the sprint i need to have several test cases testing the above CRUD methods. Finally I need to extend the application's GUI functionality  to be able to display products and Products details with any allergen associated with it.
+
+More Specific I need to:
+
+- [ ] Complete User Story 4.3 : Display products and its details to GUI 
+- [ ] Complete User Story 4.4 : Display, associated to products, allergens
+- [ ] Complete User Story 4.6 : Create CRUD Methods for tables "ProductCategories", "Producs", "Allergens", "Orders"
+- [ ] Complete User Story 4.7 : Create NUnit Tests for the above CRUD methods.
+
+#### Kanban Board at the end
+
+#### Sprint Review
+
+
+
+#### Sprint Retrospective
+
+
+
