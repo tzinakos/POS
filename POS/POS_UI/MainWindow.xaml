@@ -20,7 +20,7 @@
 
             <Label Style="{DynamicResource LabelStyle1}" Height="50" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                    BorderThickness="0,0,0,2" BorderBrush="white" x:Name="nameLabel"
-                   Width="150" Foreground="White" FontSize="20" HorizontalAlignment="Center">
+                   Width="150" Foreground="White" FontSize="20" HorizontalAlignment="Center" MouseRightButtonDown="ListBoxItem_MouseRightButtonDown">
                Log In
             </Label>
             <Button Width="150" Height="50" Background="Transparent" BorderThickness="0,0,0,1"
@@ -29,7 +29,7 @@
             <ListBoxItem Style="{DynamicResource usersListBoxStyle}" Content="user 1">
                 
             </ListBoxItem>
-            <ListBoxItem Style="{DynamicResource usersListBoxStyle}" Content="user 1">
+            <ListBoxItem Style="{DynamicResource usersListBoxStyle}" Content="user 1"  >
 
             </ListBoxItem>
 
@@ -151,8 +151,8 @@
                 <!-- Main Custom Navigation Window-->
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0" x:Name="userLogInGrid"/>
-                    <ColumnDefinition Width="*" x:Name="tablesGrid" />
+                    <ColumnDefinition Width="*" x:Name="userLogInGrid"/>
+                    <ColumnDefinition Width="0" x:Name="tablesGrid" />
                     <ColumnDefinition Width="0" x:Name="productsGrid"/>
                     <ColumnDefinition Width="auto" x:Name="reservationDetailsGrid"/>
                     <ColumnDefinition Width="0" x:Name="orderGrid"/>
@@ -354,10 +354,12 @@
                              Background="Transparent"  MouseDoubleClick="tableList_MouseDoubleClick" 
                              SelectionChanged="tableList_SelectionChanged" MouseRightButtonDown="tableList_MouseRightButtonDown" 
                              Grid.RowSpan="2" HorizontalAlignment="Stretch">
+                        
 
                         <ListBox.ItemsPanel >
                             <ItemsPanelTemplate>
-                                <WrapPanel IsItemsHost="True" Width="auto" />
+                                <WrapPanel  IsItemsHost="True" Width="auto" />
+                                
                             </ItemsPanelTemplate>
                         </ListBox.ItemsPanel>
 

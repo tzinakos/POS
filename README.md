@@ -118,18 +118,18 @@ For The Third Sprint I aim to create CRUD methods for tables "ProductCategories"
 
 More Specific I need to:
 
-- [ ] Complete User Story 4.3 : Display products and its details to GUI 
-- [ ] Complete User Story 4.4 : Display, associated to products, allergens
-- [ ] Complete User Story 4.6 : Create CRUD Methods for tables "ProductCategories", "Producs", "Allergens", "Orders"
-- [ ] Complete User Story 4.7 : Create NUnit Tests for the above CRUD methods.
+- [x] Complete User Story 4.3 : Display products and its details to GUI 
+- [x] Complete User Story 4.4 : Display, associated to products, allergens
+- [x] Complete User Story 4.6 : Create CRUD Methods for tables "ProductCategories", "Producs", "Allergens", "Orders"
+- [x] Complete User Story 4.7 : Create NUnit Tests for the above CRUD methods.
 
 #### Kanban Board at the end
-
+![Sprint3 Kanban Board at the beginning](/Images/KanbanBoard-Sprint3_End.png)
 #### Sprint Review
 
-
+In this Sprint I managed to complete all the sprint's user stories. More Specifically, I added CRUD methods for "Product", "Product Category", "Allergen" tables. Moreover, I created several Testcases for each one of those crud methods and finally I updated the GUI so that it can display products and their details. 
 
 #### Sprint Retrospective
 
-
+This sprint was better than the previous ones in terms of time and work management. After struggling a wile with "MouseRightButtonDown" mousebutton event handler on ListBoxItems, I found out that you can not implement that event handler on ListboxItems because WPF handles them internally so that it avoids bubbling; Hence, I needed to come around that problem and change my GUI design and functionality to meet the new implementation. 
 

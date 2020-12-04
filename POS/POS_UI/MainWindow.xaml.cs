@@ -97,7 +97,7 @@ namespace POS_UI
                 if (x.TableSite==tableSite)
                 {
                     ListBoxItem newItem = new ListBoxItem { Content = x.TableName };
-                    newItem.MouseLeftButtonDown += new MouseButtonEventHandler(tableList_MouseRightButtonDown);
+                    newItem.MouseRightButtonDown += new MouseButtonEventHandler(ListBoxItem_MouseRightButtonDown);
                     newItem.Style = style;
                     tableList.Items.Add(newItem);
                 }
@@ -107,6 +107,7 @@ namespace POS_UI
             {
                 foreach (var item in tableList.Items)
                 {
+                    
                     if ((item as ListBoxItem).Content == table.TableName)
                     {
                         if (table.TableStatusID == 1)
@@ -309,5 +310,12 @@ namespace POS_UI
         {
             reservationPanel.IsEnabled = !reservationPanel.IsEnabled;
         }
+
+        private void ListBoxItem_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            AddUserPopUp.IsOpen = true;
+        }
+
+      
     }
 }
