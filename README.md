@@ -21,8 +21,8 @@ The Application's purpose is to assist coffee shop's employees to manage both "s
 * The project should comply with the project description
 
 ## Class Diagrams
+![Class Diagram](/Images/Class Diagram.png)
 
-## ERD
 
 ## Sprints
 
@@ -92,7 +92,7 @@ More Specific I need to:
 
 
 #### Kanban Board at the end
-![Sprint2 Kanban Board at the beginning](/Images/KanbanBoard-Sprint2_End.png)
+![Sprint2 Kanban Board at the End](/Images/KanbanBoard-Sprint2_End.png)
 
 #### Sprint Review
 
@@ -124,7 +124,7 @@ More Specific I need to:
 - [x] Complete User Story 4.7 : Create NUnit Tests for the above CRUD methods.
 
 #### Kanban Board at the end
-![Sprint3 Kanban Board at the beginning](/Images/KanbanBoard-Sprint3_End.png)
+![Sprint3 Kanban Board at the end](/Images/KanbanBoard-Sprint3_End.png)
 #### Sprint Review
 
 In this Sprint I managed to complete all the sprint's user stories. More Specifically, I added CRUD methods for "Product", "Product Category", "Allergen" tables. Moreover, I created several Testcases for each one of those crud methods and finally I updated the GUI so that it can display products and their details. 
@@ -133,3 +133,31 @@ In this Sprint I managed to complete all the sprint's user stories. More Specifi
 
 This sprint was better than the previous ones in terms of time and work management. After struggling a wile with "MouseRightButtonDown" mousebutton event handler on ListBoxItems, I found out that you can not implement that event handler on ListboxItems because WPF handles them internally so that it avoids bubbling; Hence, I needed to come around that problem and change my GUI design and functionality to meet the new implementation. 
 
+### Sprint 4
+
+#### Kanban Board at the beginning
+![Sprint4 Kanban Board at the beginning](/Images/KanbanBoard-Sprint4_Beginning.png)
+#### Sprint Goals
+
+By The end of Sprint 4 I aim to add functionality to the application so that users can add products to their order, and then send the order to the "restaurants printers" in this case save it to a text file. Moreover, I need to make sure that each printer gets relevant products from the order; For example, the Sheff will get products related to food and bartenders, products related to drinks.
+
+In general I aim to complete:
+
+- [x] User Story 4.3 part 2
+- [x] User Story 4.1
+- [x] User Story 4.8
+- [x] User Story 5.1
+- [x] User Story 5.2
+
+#### Kanban Board at the end
+![Sprint4 Kanban Board at the end](/Images/KanbanBoard-Sprint4_End.png)
+
+#### Sprint Review
+
+In This Sprint I managed to achieve all the sprints goals, where users can create new orders and add products to the orders and at the end send the order to the printers.
+
+#### Sprint Retrospective
+
+In this sprint I had a blocker as I had to change the design of the database. More specific I had to add a many to many relationship between the tables: "Orders" and "Products" through a junction table called "OrdersProducts". However, now, I've become more experienced and familiar with database designs and Entity Framework.
+
+By the end of this sprint I learned how to generate and populate Grids through C# Code and add them to a listbox.

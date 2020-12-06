@@ -94,10 +94,12 @@ namespace POS_Model
         //Order Table Attributes
         public int OrderID { get; set; }
         public DateTime OrderDate { get; set; }
-    
+
         //Reference Atributes
         public int TableID { get; set; }
         public Table Table { get; set; }
+
+        public virtual ICollection<Product> Products {get;set;}
 
         
     }
@@ -116,7 +118,7 @@ namespace POS_Model
     {
         //Product Table Attributes
         public int ProductID { get; set; }
-        public string ProductName{ get; set; }
+        public string ProductName { get; set; }
         public double ProductPrice { get; set; }
         public string ProductDescription { get; set; }
         public int ProductQuantity { get; set; }
@@ -127,6 +129,8 @@ namespace POS_Model
 
         public int AllergenID { get; set; }
         public Allergen Allergen { get; set; }
+
+        public virtual ICollection<Order> Orders{ get; set; }
        // public List<Allergen> Allergens = new List<Allergen>();
     }
 

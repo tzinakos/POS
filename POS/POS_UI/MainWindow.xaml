@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:POS_UI"
         mc:Ignorable="d"
-        Title="My POS" Height="450" Width="800">
+        Title="My POS" Height="520" Width="900" MinHeight="520" MaxHeight="520"
+        MinWidth="900" MaxWidth="900">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -14,18 +15,19 @@
 
         <!--Creating left sidebar-->
         <ListBox Style="{DynamicResource ListBoxStyle1}" Grid.Column="0" Width="150" x:Name="usersList"
-                 Background="#FF232B2B" BorderThickness="0,0,2,0" BorderBrush="black" IsEnabled="True"
+                 Background="#1E2124" BorderThickness="0,0,2,0" BorderBrush="black" IsEnabled="True"
                  HorizontalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                  SelectionChanged="usersList_SelectionChanged" Foreground="white" HorizontalAlignment="Center">
 
-            <Label Style="{DynamicResource LabelStyle1}" Height="50" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
-                   BorderThickness="0,0,0,2" BorderBrush="white" x:Name="nameLabel"
-                   Width="150" Foreground="White" FontSize="20" HorizontalAlignment="Center" MouseRightButtonDown="ListBoxItem_MouseRightButtonDown">
-               Log In
+            <Label  Height="50" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                   BorderThickness="0,0,0,2" BorderBrush="Green" x:Name="nameLabel"  Content="Log In" Margin="0" Padding="0" 
+                    Foreground="White" FontSize="20" Width="120"  MouseRightButtonDown="ListBoxItem_MouseRightButtonDown" Focusable="False" >
+              
+                
             </Label>
-            <Button Width="150" Height="50" Background="Transparent" BorderThickness="0,0,0,1"
+            <!--<Button Width="150" Height="50" Background="Transparent" BorderThickness="0,0,0,1"
                     BorderBrush="white" Click="Button_Click" Foreground="White" Content="Add User"
-                    HorizontalAlignment="Center" Name="userButton"/>
+                    HorizontalAlignment="Center" Name="userButton"/>-->
             <ListBoxItem Style="{DynamicResource usersListBoxStyle}" Content="user 1">
                 
             </ListBoxItem>
@@ -34,6 +36,8 @@
             </ListBoxItem>
 
         </ListBox>
+        
+        <!--Add User POP_UP-->
         <Popup  IsOpen="False" Name="AddUserPopUp" HorizontalAlignment="Left"   
                 VerticalAlignment="Center" Placement="MousePoint">
 
@@ -116,38 +120,56 @@
         <Grid Grid.Column="1">
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF414A4C"/>
-                    <GradientStop Color="#FF232B2B" Offset="0.67"/>
+                    <GradientStop Color="#191D1F"/>
+                    <GradientStop Color="#191D1F" Offset="0.67"/> <!--191D1F-->
+                    <!--original end: FF232B2B-->
+                    <!--Original begining FF414A4C-->
                 </LinearGradientBrush>
             </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
+            
+            <!--Header-->
 
-            <Grid Grid.Row="0" Background="#414a4c">
+            <Grid Grid.Row="0" Background="#1E2124">
+                <Grid.Effect>
+                    <DropShadowEffect/>
+                </Grid.Effect>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <Button x:Name="HumBurger" Grid.Column="0"
-                        Content="Open" HorizontalAlignment="Left" Height="50" VerticalAlignment="Bottom" Click="HumBurger_Click">
+                <Button x:Name="HumBurger" Grid.Column="0" 
+                        HorizontalAlignment="Left" Height="80" Width="80" 
+                        VerticalAlignment="Center" Click="HumBurger_Click" BorderThickness="0">
+                    <Button.Background >
+                        <ImageBrush ImageSource="/right Avatar button.png" Stretch="UniformToFill" />
+                    </Button.Background>
                 </Button>
 
                 <Label Grid.Column="1" Content="My POS"
                        HorizontalAlignment="Center" VerticalAlignment="Center"
-                       Foreground="White" FontSize="20" Opacity=".4">
+                       Foreground="White" FontSize="20" Opacity=".8" Background="Transparent">
 
                 </Label>
 
-                <Button x:Name="dummyButton" Grid.Column="2"
-                        Content="Close" HorizontalAlignment="Left" Height="50" Margin="132,0,0,0" VerticalAlignment="Bottom" Click="dummyButton_Click">
+                <Button x:Name="dummyButton" Grid.Column="2" HorizontalAlignment="right" BorderThickness="0"
+                          Height="80" Width="80" VerticalAlignment="Center" Click="dummyButton_Click">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/left menu buttonNew.png" Stretch="UniformToFill"/>
+                    </Button.Background>
                 </Button>
 
 
             </Grid>
+            <!--////////////////////////////////////////-->
+            <!--////////////////////////////////////////-->
+            <!--////////////////////////////////////////-->
+            <!--////////////////////////////////////////-->
                 <!-- Main Custom Navigation Window-->
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
@@ -157,12 +179,88 @@
                     <ColumnDefinition Width="auto" x:Name="reservationDetailsGrid"/>
                     <ColumnDefinition Width="0" x:Name="orderGrid"/>
                 </Grid.ColumnDefinitions>
+                
+                <!--Products Grid-->
+                <Grid Grid.Column="2" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="390"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="160"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <!--ListBox of Product Subcategories-->
+                        <ListBox x:Name="subcategoryList" Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                             VerticalAlignment="Top" Margin="0,5,0,0" BorderThickness="0,0,3,0" BorderBrush="Black" Foreground="white" HorizontalContentAlignment="Stretch"
+                             Background="#191D1F" Height="800" HorizontalAlignment="Stretch" SelectionChanged="subcategoryList_SelectionChanged"  >
+                            <ListBox.Effect>
+                                <DropShadowEffect>
+                                    
+                                </DropShadowEffect>
+                            </ListBox.Effect>
+                        </ListBox>
+                        <!-- ListBox of Products-->
+                        <ListBox x:Name="productsList" Grid.Column="1" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                             VerticalAlignment="Top" Margin="10,10,10,10" BorderThickness="0"  Width="auto"
+                             Background="Transparent" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+
+
+                            <ListBox.ItemsPanel >
+                                <ItemsPanelTemplate>
+                                    <WrapPanel  IsItemsHost="True" Width="600" Height="auto" >
+                                    </WrapPanel>
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                           
+                        </ListBox>
+                    </Grid>
+                    
+                    
+                    <!-- ListBox of Product Categories-->
+                    <ListBox Grid.Row="1"  HorizontalContentAlignment="Center" HorizontalAlignment="Stretch"
+                             VerticalAlignment="Bottom" Foreground="White" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                              BorderThickness="0" FontSize="20" Margin="0,0,0,0" Padding="0" Width="auto" 
+                             x:Name="productCategoriesListBox"  Height="40" SelectionChanged="productCategoriesListBox_SelectionChanged">
+
+                        <ListBox.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#1E2124"/>
+                                <GradientStop Color="#1E2124" Offset="0.67"/>
+                            </LinearGradientBrush>
+                        </ListBox.Background>
+                        <ListBox.ItemsPanel >
+                            <ItemsPanelTemplate>
+                                <WrapPanel IsItemsHost="True" HorizontalAlignment="Center"
+                                           Height="35" VerticalAlignment="Bottom"/>
+
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBoxItem Margin="0" Padding="0" 
+                                     BorderThickness="0,0,0,2" BorderBrush="Green"
+                                     Content="Dips / Cold Starters" MinWidth="200" HorizontalContentAlignment="Center"/>
+                        <ListBoxItem Margin="0,0,0,0" MinWidth="200" Content="Main"
+                                     HorizontalContentAlignment="Center" BorderThickness="0,0,0,2" BorderBrush="Green"/>
+                        <ListBoxItem Margin="0" MinWidth="200"  Content="Deserts" 
+                                     HorizontalContentAlignment="Center" BorderThickness="0,0,0,2" 
+                                     BorderBrush="Green"/>
+                        <ListBoxItem Margin="0" MinWidth="200"  Content="Drinks" 
+                                     HorizontalContentAlignment="Center" BorderThickness="0,0,0,2" 
+                                     BorderBrush="Green"/>
+                        
+                        </ListBox>
+                    
+                </Grid>
 
 
                 <!-- reservationDetail Panel -->
-                <StackPanel Style="{DynamicResource StackPanelStyle1}" Grid.Column="3" Background="#414a4c" 
-                            x:Name="reservationPanel" IsEnabled="False" HorizontalAlignment="Right">
-                    <Grid Height="390">
+                <StackPanel Style="{DynamicResource StackPanelStyle1}" Grid.Column="3" Background="#1E2124" 
+                            x:Name="reservationPanel" IsEnabled="False" HorizontalAlignment="Right" Margin="2,2,0,0">
+                   
+                    <Grid Height="390" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
@@ -182,48 +280,53 @@
                         
                         <Grid Grid.Row="1">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
+                                <ColumnDefinition Width="60"/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" Content="Name:"
                                HorizontalContentAlignment="left"
                                VerticalContentAlignment="Bottom"
-                               Height="50"
-                               FontSize="15" Foreground="White">
+                                   VerticalAlignment="Bottom"
+                               Height="50" Margin="5,0,0,0" 
+                               FontSize="15" Foreground="White"
+                                   BorderThickness="0,0,0,2"
+                                     BorderBrush="Green">
+                                
                             </Label>
 
                             <TextBox Grid.Column="1" x:Name="ReservationName"
-                                     HorizontalAlignment="Stretch"
+                                     HorizontalAlignment="Stretch" Margin="0,0,5,0" 
                                      HorizontalContentAlignment="Center"
                                      VerticalContentAlignment="Bottom"
                                      FontSize="15" Foreground="White"
                                      Background="Transparent"
-                                     BorderThickness="0,0,0,1"
-                                     BorderBrush="White">
+                                     BorderThickness="0,0,0,2"
+                                     BorderBrush="Green">
                                 
                             </TextBox>
                         </Grid>
 
                         <Grid Grid.Row="2">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
+                                <ColumnDefinition Width="60"/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" Content="Phone:"
                                HorizontalContentAlignment="left"
                                VerticalContentAlignment="Bottom"
-                               Height="50"
-                               FontSize="15" Foreground="White">
+                               Height="50" BorderThickness="0,0,0,2"
+                                     BorderBrush="Green"
+                               FontSize="15" Foreground="White" Margin="5,0,0,0" >
                             </Label>
 
                             <TextBox Grid.Column="1" x:Name="ReservationPhone"
                                      HorizontalAlignment="Stretch"
                                      HorizontalContentAlignment="Center"
                                      VerticalContentAlignment="Bottom"
-                                     FontSize="12" Foreground="White"
+                                     FontSize="14" Foreground="White"
                                      Background="Transparent"
-                                     BorderThickness="0,0,0,1"
-                                     BorderBrush="White">
+                                     BorderThickness="0,0,0,2"
+                                     BorderBrush="Green" Margin="0,0,5,0" >
 
                             </TextBox>
                         </Grid>
@@ -235,7 +338,8 @@
                             <Label Grid.Column="0" Content="N.Guests:"
                                HorizontalContentAlignment="left"
                                VerticalContentAlignment="Bottom"
-                               Height="50"
+                               Height="50" BorderThickness="0,0,0,2"
+                                     BorderBrush="Green" Margin="5,0,0,0" 
                                FontSize="15" Foreground="White">
                             </Label>
 
@@ -245,27 +349,33 @@
                                      VerticalContentAlignment="Bottom"
                                      FontSize="15" Foreground="White"
                                      Background="Transparent"
-                                     BorderThickness="0,0,0,1"
-                                     BorderBrush="White">
+                                     BorderThickness="0,0,0,2" Margin="0,0,5,0" 
+                                     BorderBrush="Green" >
 
                             </TextBox>
                         </Grid>
                         <Grid Grid.Row="4" >
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
+                                <ColumnDefinition Width="50"/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" Content="Date:"
-                               HorizontalContentAlignment="Left"
+                               HorizontalContentAlignment="Stretch"
+                                   HorizontalAlignment="Stretch"
                                VerticalContentAlignment="Bottom"
-                               Height="50"
-                               FontSize="15" Foreground="White">
+                                   VerticalAlignment="Bottom"
+                               Height="50"  Margin="5,0,0,0" 
+                               FontSize="15" Foreground="White"
+                                 BorderThickness="0,0,0,2"
+                                     BorderBrush="Green" >
                             </Label>
 
                             <DatePicker Grid.Column="1" Text="Select Starting Date"  Background="Transparent" 
-                            BorderThickness="0" x:Name="ReservationdatePicker" HorizontalAlignment="Stretch"
-                             Height="30" VerticalAlignment="Bottom" 
-                            HorizontalContentAlignment="Stretch">
+                             x:Name="ReservationdatePicker" HorizontalAlignment="Stretch"
+                             Height="30" VerticalAlignment="Bottom" Width="120" 
+                            HorizontalContentAlignment="Stretch" 
+                                  BorderThickness="0,0,0,2"
+                                     BorderBrush="Green"  Margin="0,0,5,0" >
                                 
                             </DatePicker>
                         </Grid>
@@ -273,14 +383,14 @@
                         <Button Grid.Row="5" Content="Reserve"
                                 Height="50" Foreground="White"
                                 Background="Transparent"
-                                BorderBrush="White"
-                                BorderThickness="1" Margin="5" Click="Button_Click_1">
+                                BorderBrush="Green"
+                                BorderThickness="1.5" Margin="5" Click="Button_Click_1">
                             
                         </Button>
                     </Grid>
-
+                   
                 </StackPanel>
-
+                <!--Log In-->
                 <Grid Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"
                       Width="300" Height="200" >
 
@@ -288,7 +398,7 @@
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF414A4C"/>
-                            <GradientStop Color="#FF232B2B" Offset="0.67"/>
+                            <GradientStop Color="#191D1F" Offset="0.67"/>
                         </LinearGradientBrush>
                     </Grid.Background>
 
@@ -316,7 +426,7 @@
                     </Button>
 
                 </Grid>
-
+                    <!--Tables Category-->
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="8*"/>
@@ -325,13 +435,13 @@
 
                     <ListBox Grid.Row="1"  HorizontalContentAlignment="Center" HorizontalAlignment="Stretch"
                              VerticalAlignment="Bottom" Foreground="White" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                              BorderThickness="0" FontSize="20" Margin="0" Padding="0" 
+                              BorderThickness="0" FontSize="20" Margin="0,2,0,0" Padding="0" 
                              x:Name="tableSiteList" SelectionChanged="tableSiteList_SelectionChanged" >
                         
                         <ListBox.Background>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="#FF414A4C"/>
-                                <GradientStop Color="#FF232B2B" Offset="0.67"/>
+                                <GradientStop Color="#1E2124"/>
+                                <GradientStop Color="#1E2124" Offset="0.67"/>
                             </LinearGradientBrush>
                         </ListBox.Background>
                         <ListBox.ItemsPanel >
@@ -341,14 +451,15 @@
                             </ItemsPanelTemplate>
                         </ListBox.ItemsPanel>
                         <ListBoxItem Margin="0" Padding="0" 
-                                     BorderThickness="0" 
+                                     BorderThickness="0,0,0,2" BorderBrush="Green"
                                      Content="In" MinWidth="215" HorizontalContentAlignment="Center"/>
                         <ListBoxItem Margin="0,0,0,0" MinWidth="220" Content="Out"
-                                     HorizontalContentAlignment="Center"/>
-                        <ListBoxItem Margin="0" MinWidth="215" BorderThickness="0" Content="Bar"
-                                     HorizontalContentAlignment="Center"/>
+                                     HorizontalContentAlignment="Center" BorderThickness="0,0,0,2" BorderBrush="Green"/> 
+                        <ListBoxItem Margin="0" MinWidth="215"  Content="Bar" 
+                                     HorizontalContentAlignment="Center" BorderThickness="0,0,0,2" BorderBrush="Green"/>
                     </ListBox>
 
+                    <!--Tables List-->
                     <ListBox x:Name="tableList" Grid.Row="0" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                              VerticalAlignment="Top" Margin="10,10,10,10" BorderThickness="0" 
                              Background="Transparent"  MouseDoubleClick="tableList_MouseDoubleClick" 
@@ -358,7 +469,7 @@
 
                         <ListBox.ItemsPanel >
                             <ItemsPanelTemplate>
-                                <WrapPanel  IsItemsHost="True" Width="auto" />
+                                <WrapPanel  IsItemsHost="True" Width="auto" Height="auto" />
                                 
                             </ItemsPanelTemplate>
                         </ListBox.ItemsPanel>
@@ -368,14 +479,16 @@
                                 Foreground="White"></Button>-->
 
                     </ListBox>
+                    
+                    <!-- selected Table POPUP-->
                     <Popup  IsOpen="False" Name="doubleClickOnTable" HorizontalAlignment="Left"   
                 VerticalAlignment="Center" Placement="MousePoint">
 
-                        <Grid  Width="100" Height="100" Margin="1,0,1,2">
+                        <Grid  Width="150" Height="250">
                             <Grid.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="#FF414A4C"/>
-                                    <GradientStop Color="#FF232B2B" Offset="0.67"/>
+                                    <GradientStop Color="#1E2124"/>
+                                    <GradientStop Color="#1E2124" Offset="0.67"/>
                                 </LinearGradientBrush>
                             </Grid.Background>
                             <Grid.RowDefinitions>
@@ -383,33 +496,44 @@
                                 <RowDefinition/>
                                 <RowDefinition/>
                                 <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
                             </Grid.RowDefinitions>
 
-                            <Button x:Name="ReserveTable" Content="Cancel Reservation" BorderThickness="0,0,0,1"
-                        Grid.Row="0"  Width="80" Height="30" HorizontalAlignment="Center"
+                            <Button x:Name="ReserveTable" Content="Reserve Table" BorderThickness="0,0,0,2"
+                        Grid.Row="1"  Width="120" Height="40" HorizontalAlignment="Center"
                         Background="Transparent"  Foreground="White"
-                        BorderBrush="AliceBlue" Click="ReserveTable_Click" >
-
+                        BorderBrush="Green" Click="ReserveTable_Click" >
                             </Button>
-                            <Button x:Name="UpdateTable" Content="Update Table" BorderThickness="0,0,0,1"
-                        Grid.Row="1" Width="80" Height="30" HorizontalAlignment="Center"
+                            <Button x:Name="UpdateTable" Content="Update Table" BorderThickness="0,0,0,2"
+                        Grid.Row="3" Width="120" Height="40" HorizontalAlignment="Center"
                         Background="Transparent"  Foreground="White"
-                        BorderBrush="AliceBlue" Click="UpdateTable_Click" >
-
+                        BorderBrush="Green" Click="UpdateTable_Click" >
                             </Button>
-                            <Button x:Name="DeleteTable" Content="Delete Table" BorderThickness="0,0,0,1"
-                        Grid.Row="2" Width="80" Height="30" HorizontalAlignment="Center"
+                            <Button x:Name="DeleteTable" Content="Delete Table" BorderThickness="0,0,0,2"
+                        Grid.Row="4" Width="120" Height="40" HorizontalAlignment="Stretch" 
                         Background="Transparent"  Foreground="White"
-                        BorderBrush="AliceBlue" Click="DeleteTable_Click" >
-
-                            </Button>
-                            <Button x:Name="Cancel" Content="Cancel" BorderThickness="0,0,0,1"
-                        Grid.Row="3" Width="80" Height="30" HorizontalAlignment="Center"
-                        Background="Transparent"  Foreground="White"
-                        BorderBrush="AliceBlue" Click="Cancel_Click" >
-
+                        BorderBrush="Green" Click="DeleteTable_Click" >
                             </Button>
 
+                           
+                            <Button x:Name="Cancel" Content="Close" BorderThickness="0,0,0,2"
+                        Grid.Row="5" Width="120" Height="40" HorizontalAlignment="Center"
+                        Background="Transparent"  Foreground="White"
+                        BorderBrush="Green" Click="Cancel_Click" >
+
+                            </Button>
+                            <Button x:Name="OpenTable" Content="Open Table" BorderThickness="0,0,0,2"
+                        Grid.Row="0"  Width="120" Height="40" HorizontalAlignment="Center"
+                        Background="Transparent"  Foreground="White"
+                        BorderBrush="Green" Click="OpenTable_Click" >
+                            </Button>
+                            
+                            <Button x:Name="ReservationInformation" Content="Current Reservations" BorderThickness="0,0,0,2"
+                        Grid.Row="2"  Width="120" Height="40" HorizontalAlignment="Center"
+                        Background="Transparent"  Foreground="White"
+                        BorderBrush="Green" Click="ReservationInformation_Click" >
+                            </Button>
                         </Grid>
 
                     </Popup>
@@ -644,6 +768,56 @@
                         </Grid>
 
                     </Popup>
+                    
+                    <!--Reservation Details Popup Begins-->
+                    <Popup  IsOpen="False" Name="ReservationDetailsPopup" HorizontalAlignment="Left"   
+                            VerticalAlignment="Center" Placement="Center" Width="400" Height="350" PopupAnimation="Fade">
+                        
+                        <Grid Background="#1E2124">
+                            <Grid.Effect>
+                                <DropShadowEffect />
+                                
+                            </Grid.Effect>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition/>
+                                <RowDefinition Height="40"/>
+                            </Grid.RowDefinitions>
+
+                            <Label x:Name="reservedTableDetailName"  Grid.Row="0"
+                               Content="Reservation Details For Table 1" Foreground="White"
+                               FontSize="15" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                               BorderThickness="0,0,0,2" BorderBrush="Green" Margin="10" >
+                            </Label>
+
+                            <ListBox Grid.Row="1" Background="Transparent" x:Name="reservationListBox"
+                                     VerticalContentAlignment="Top" VerticalAlignment="Top" Margin="10"
+                                     HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                     BorderThickness="0,0,0,2" BorderBrush="Green">
+                            </ListBox>
+
+                            <Grid Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Button Grid.Column="0" Content="Cancel Reservation"
+                                        Foreground="white" Background="Transparent"
+                                        BorderBrush="Red" Width="120" Height="40" 
+                                        BorderThickness="0,0,0,2">
+
+                                </Button>
+                                <Button Grid.Column="1" Content="Close"
+                                        Foreground="white" Background="Transparent"
+                                        BorderBrush="Green" Width="120" Height="40" 
+                                        BorderThickness="0,0,0,2" Click="Button_Click_2">
+                                </Button>
+                            </Grid>
+
+                        </Grid>
+                    </Popup>
+                    <!--Reservation Details Popup Ends-->
 
                 </Grid>
 

@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="left menu buttonNew.png" />
+    <None Remove="right Avatar button New %281%29.png" />
+    <None Remove="right Avatar button.png" />
+    <None Remove="right menu button.png" />
+    <None Remove="right menu buttonNew.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.0">
       <PrivateAssets>all</PrivateAssets>
@@ -22,6 +30,14 @@
   <ItemGroup>
     <ProjectReference Include="..\POS_Business\POS_Business.csproj" />
     <ProjectReference Include="..\POS_Model\POS_Model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="left menu buttonNew.png" />
+    <Resource Include="right Avatar button New (1).png" />
+    <Resource Include="right Avatar button.png" />
+    <Resource Include="right menu button.png" />
+    <Resource Include="right menu buttonNew.png" />
   </ItemGroup>
 
 </Project>

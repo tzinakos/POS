@@ -72,5 +72,17 @@ namespace POS_Business
                 db.SaveChanges();
             }
         }
+
+        public List<Product> GetProducts(ProductCategory selectedProductCategory)
+        {
+            using (var db = new PosContext())
+            {
+                return (from p in db.Products
+                        join pc in db.ProductCategories
+                        on p.ProductCategoryID equals pc.ProductCategoryID
+                        where pc.ProductCategoryID == selectedProductCategory.ProductCategoryID
+                        select p).ToList();
+            }
+        }
     }
 }

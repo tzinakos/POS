@@ -91,5 +91,17 @@ namespace POS_Business
             }
         }
 
+        public List<Reservation> GetReservations(Table table)
+        {
+            using (var db = new PosContext())
+            {
+                return (from r in db.Reservations
+                        join t in db.Tables
+                        on r.TableID equals t.TableID
+                        where t.TableID == table.TableID
+                        select r).ToList();
+            }
+        }
+
     }
 }

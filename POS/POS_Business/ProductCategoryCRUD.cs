@@ -4,10 +4,17 @@ using System.Text;
 using System.Linq;
 using POS_Model;
 
+
 namespace POS_Business
 {
     public class ProductCategoryCRUD : MasterCRUD
     {
+        List<ProductCategory> starters = new List<ProductCategory>();
+        List<ProductCategory> main = new List<ProductCategory>();
+        List<ProductCategory> deserts = new List<ProductCategory>();
+        List<ProductCategory> fizzyDrinks = new List<ProductCategory>();
+        List<ProductCategory> drinks = new List<ProductCategory>();
+        List<ProductCategory> coffees = new List<ProductCategory>();
         public override void Read()
         {
             using (var db = new PosContext())
@@ -16,11 +23,11 @@ namespace POS_Business
             }
         }
 
-        public string Read(int productCategoryID)
+        public ProductCategory Read(string productCategoryName)
         {
             using ( var db = new PosContext())
             {
-                return db.ProductCategories.Where(pc => pc.ProductCategoryID == productCategoryID).Select(p => p.ProductCategoryName).FirstOrDefault();
+                return db.ProductCategories.Where(pc => pc.ProductCategoryName == productCategoryName).Select(p => p).FirstOrDefault();
             }
         }
 
