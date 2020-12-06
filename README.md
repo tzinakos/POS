@@ -161,3 +161,17 @@ In This Sprint I managed to achieve all the sprints goals, where users can creat
 In this sprint I had a blocker as I had to change the design of the database. More specific I had to add a many to many relationship between the tables: "Orders" and "Products" through a junction table called "OrdersProducts". However, now, I've become more experienced and familiar with database designs and Entity Framework.
 
 By the end of this sprint I learned how to generate and populate Grids through C# Code and add them to a listbox.
+
+### Sprint 5
+#### Kanban Board at the beginning
+![Sprint4 Kanban Board at the beginning](/Images/KanbanBoard-Sprint5_Beginning.png)
+#### Sprint Goals
+
+This Sprint is the final one; Thus, I aim to complete all remaining user stories and if I have the time to refactor my code and implement some minor design features. More Specific I need to complete User Stories:
+
+- [ ] Complete User Story 6.1
+- [ ] Complete User Story 6.2
+
+#### Kanban Board at the end
+#### Sprint Review
+#### Sprint Retrospective
