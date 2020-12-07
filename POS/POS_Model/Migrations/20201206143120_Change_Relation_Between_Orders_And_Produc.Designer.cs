@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using POS_Model;
 
 namespace POS_Model.Migrations
 {
     [DbContext(typeof(PosContext))]
-    partial class PosContextModelSnapshot : ModelSnapshot
+    [Migration("20201206143120_Change_Relation_Between_Orders_And_Produc")]
+    partial class Change_Relation_Between_Orders_And_Produc
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,10 +46,15 @@ namespace POS_Model.Migrations
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("ProductID")
+                        .HasColumnType("int");
+
                     b.Property<int>("TableID")
                         .HasColumnType("int");
 
                     b.HasKey("OrderID");
+
+                    b.HasIndex("ProductID");
 
                     b.HasIndex("TableID");
 
@@ -227,6 +234,10 @@ namespace POS_Model.Migrations
 
             modelBuilder.Entity("POS_Model.Order", b =>
                 {
+                    b.HasOne("POS_Model.Product", null)
+                        .WithMany("Orders")
+                        .HasForeignKey("ProductID");
+
                     b.HasOne("POS_Model.Table", "Table")
                         .WithMany()
                         .HasForeignKey("TableID")
@@ -294,6 +305,11 @@ namespace POS_Model.Migrations
                         .IsRequired();
 
                     b.Navigation("UserRole");
+                });
+
+            modelBuilder.Entity("POS_Model.Product", b =>
+                {
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

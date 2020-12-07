@@ -78,19 +78,22 @@ namespace POS_Business
                 db.SaveChanges();
             }
         }
-        public void CancelReservation(int tableID)
+        public void CancelReservation(int selectedReservationID)
         {
             using (var db = new PosContext())
             {
-                db.Reservations.Remove(db.Reservations.Find((from r in db.Reservations
-                                                             join t in db.Tables
-                                                             on r.TableID equals t.TableID
-                                                             where t.TableID == tableID
-                                                             select r.ReservationID).FirstOrDefault()));
+                db.Reservations.Remove(db.Reservations.Find(selectedReservationID));
                 db.SaveChanges();
             }
         }
 
+        public void SelectReservation(string currentReservationName)
+        {
+            using (var db = new PosContext())
+            {
+                selectedReservation = db.Reservations.Where(r=>r.ReservationName==currentReservationName).FirstOrDefault();
+            }
+        }
         public List<Reservation> GetReservations(Table table)
         {
             using (var db = new PosContext())

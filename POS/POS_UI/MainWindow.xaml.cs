@@ -5,7 +5,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using POS_Business;
 using POS_Model;
-
+using System.Collections.Generic;
 
 namespace POS_UI
 {
@@ -18,7 +18,12 @@ namespace POS_UI
         TableCRUD tableCRUD = new TableCRUD();
         ProductCategoryCRUD productCategoryCRUD = new ProductCategoryCRUD();
         ProductCRUD productCRUD = new ProductCRUD();
+        OrderCRUD orderCRUD = new OrderCRUD();
+        AllergenCRUD allergenCRUD = new AllergenCRUD();
         string selectedTableSite = "";
+        public int TotalItems { get; set; } = 0;
+        public double TotalPrice { get; set; } = 0;
+        public Dictionary<Order,List<Product>> newOrder = new Dictionary<Order,List<Product>>();
 
         bool loggedIn = false;
         public MainWindow()
@@ -37,9 +42,9 @@ namespace POS_UI
             {
 
                 int userListCount = usersList.Items.Count;
-                for (int i = 2; i < userListCount; i++)
+                for (int i = 1; i < userListCount; i++)
                 {
-                    usersList.Items.RemoveAt(2);
+                    usersList.Items.RemoveAt(1);
                 }
                 userCRUD.Read();
                 foreach (var x in userCRUD.usersList)
@@ -57,16 +62,41 @@ namespace POS_UI
             else
             {
                 int userListCount = usersList.Items.Count;
-                for (int i = 2; i < userListCount; i++)
+                for (int i = 1; i < userListCount; i++)
                 {
-                    usersList.Items.RemoveAt(2);
+                    usersList.Items.RemoveAt(1);
                 }
                 nameLabel.Content = userCRUD.selectedUser.UserName;
                 //userButton.Content = "Log Out";
                 ListBoxItem userPoints = new ListBoxItem { Content = $"Your Points: {userCRUD.selectedUser.UserPoints}" };
                 ListBoxItem userRole = new ListBoxItem { Content = $"Role: {userCRUD.GetUserRole(userCRUD.selectedUser.UserID)}" };
-                Button changePassword = new Button { Content = "Change Password" };
+                Button changePassword = new Button
+                {
+                    Content = "Change Password",
+                    BorderThickness = new Thickness(0, 0, 0, 2),
+                    Width = 120,
+                    Height = 40,
+                    Foreground = Brushes.White,
+                    Background = new SolidColorBrush { Color = new Color { A = 0, G = 128, R = 0, B = 0 } },
+                    BorderBrush = new SolidColorBrush { Color = new Color { A = 255, G = 255, R = 0, B = 0 } },
+                    VerticalAlignment = VerticalAlignment.Center,
+                    VerticalContentAlignment = VerticalAlignment.Center
+                };
+                Button LogOut = new Button
+                {
+                    Content = "Log Out",
+                    BorderThickness = new Thickness(0, 0, 0, 2),
+                    Width = 120,
+                    Height = 40,
+                    Foreground = Brushes.White,
+                    Background = new SolidColorBrush { Color = new Color { A = 0, G = 128, R = 0, B = 0 } },
+                    BorderBrush = new SolidColorBrush { Color = new Color { A = 255, G = 255, R = 0, B = 0 } },
+                    VerticalAlignment = VerticalAlignment.Center,
+                    VerticalContentAlignment = VerticalAlignment.Center
+                };
                 changePassword.Click += new RoutedEventHandler(ChangePasswordClick);
+                LogOut.Click += new RoutedEventHandler(LogOutClick);
+                usersList.Items.Add(LogOut);
                 usersList.Items.Add(userRole);
                 usersList.Items.Add(userPoints);
                 usersList.Items.Add(changePassword);
@@ -76,9 +106,24 @@ namespace POS_UI
 
 
         }
+        private void LogOutClick(object sender, RoutedEventArgs e)
+        {
+            nameLabel.Content = "Log In";
+            loggedIn = false;
+            RefreshUsersList();
+            usersList.IsEnabled = true;
+            tablesGrid.Width = new GridLength(0);
+            productsGrid.Width = new GridLength(0);
+
+            reservationPanel.IsEnabled = false;
+            OrderPanel.IsEnabled = false;
+            userLogInGrid.Width = new GridLength(100, GridUnitType.Star);
+        }
 
         public void RefreshTablesList(string tableSite)
         {
+
+
             int tablesList = tableList.Items.Count;
             for (int i = 0; i < tablesList; i++)
             {
@@ -88,6 +133,7 @@ namespace POS_UI
             Style style = this.FindResource("tableBoxItem") as Style;
             foreach (var x in tableCRUD.tablesList)
             {
+               
                 if (x.TableSite==tableSite)
                 {
                     ListBoxItem newItem = new ListBoxItem { Content = x.TableName };
@@ -99,19 +145,39 @@ namespace POS_UI
             
             foreach (var table in tableCRUD.tablesList)
             {
+
+                if (orderCRUD.GetOrders(table.TableID).Count >= 1)
+                {
+                    table.TableStatusID = 2;
+                }
+                else if (tableCRUD.GetReservations(table).Count >= 1)
+                {
+                    table.TableStatusID = 3;
+                }
+                else table.TableStatusID = 1;
+
                 foreach (var item in tableList.Items)
                 {
                     
-                    if ((item as ListBoxItem).Content == table.TableName)
+                    if ((item as ListBoxItem).Content.ToString() == table.TableName)
                     {
-                        if (table.TableStatusID == 1)
+                        
+
+
+                        if (table.TableStatusID == 2)
                         {
-                            (item as ListBoxItem).BorderBrush = new SolidColorBrush { Color = new System.Windows.Media.Color { A = 100, R = 0, G = 255, B = 0 } };
+                            (item as ListBoxItem).BorderBrush = new SolidColorBrush { Color = new System.Windows.Media.Color { A = 255, R = 125, G = 0, B = 0 } };
+                            
                         
                         }
-                        else if (table.TableStatusID == 2)
+                        else if (table.TableStatusID == 3)
                         {
-                            (item as ListBoxItem).BorderBrush = new SolidColorBrush { Color = new System.Windows.Media.Color { A = 100, R = 255, G = 0, B = 0 } };
+                            (item as ListBoxItem).BorderBrush = new SolidColorBrush { Color = new System.Windows.Media.Color { A = 255, R = 125, G = 125, B = 0 } };
+                        }
+                        else if (table.TableStatusID == 1)
+                        {
+                            (item as ListBoxItem).BorderBrush = new SolidColorBrush { Color = new System.Windows.Media.Color { A = 255, R = 0, G = 125, B = 0 } };
+                            
                         }
                     }
                 }
@@ -125,7 +191,7 @@ namespace POS_UI
             
             switch (selectedCategory)
             {
-                case "Dips / Cold Starters": 
+                case "Starters": 
                     foreach(var category in productCategoryCRUD.productCategoriesList)
                     {
                         if (category.ProductCategoryID == 5 || category.ProductCategoryID == 6 || category.ProductCategoryID == 7)
@@ -180,8 +246,8 @@ namespace POS_UI
             {
 
                 //Main Grid
-                Grid reservationDetailGrid = new Grid { Width = 350, Height = 150 };
-
+                Grid reservationDetailGrid = new Grid { Width = 350, Height = 150,   Name = $"{item.ReservationName}" };
+               
                 ColumnDefinition column1 = new ColumnDefinition();
                 RowDefinition row1 = new RowDefinition { Height = new GridLength(30) };
                 RowDefinition row2 = new RowDefinition{Height = new GridLength(120)};
@@ -368,14 +434,10 @@ namespace POS_UI
 
                 Grid.SetRow(mainDetails, 1);
                 reservationDetailGrid.Children.Add(mainDetails);
-
+                
                 reservationListBox.Items.Add(reservationDetailGrid);
 
 
-
-
-
-               
             }
         }
         private void RefreshProducts(ProductCategory selectedProductCategory)
@@ -383,11 +445,11 @@ namespace POS_UI
             productsList.Items.Clear();
             foreach (var selectedCategory in productCRUD.GetProducts(selectedProductCategory))
             {
-                Grid product = new Grid { Width = 250, Height = 150, Margin = new Thickness(3), Background = new SolidColorBrush { Color = new System.Windows.Media.Color { A=200,R=30,G=33,B=36} } };
+                Grid product = new Grid { Width = 250, Height = 150, Margin = new Thickness(10,10,10,10), Background = new SolidColorBrush { Color = new Color { A=200,R=30,G=33,B=36} } };
                 RowDefinition row1 = new RowDefinition { Height = new GridLength(60)};
                 RowDefinition row2 = new RowDefinition { Height = new GridLength(90) };
-                ColumnDefinition column0 = new ColumnDefinition { Width = new GridLength(190)};
-                ColumnDefinition column1 = new ColumnDefinition();
+                ColumnDefinition column0 = new ColumnDefinition { Width = new GridLength(180) };
+                ColumnDefinition column1 = new ColumnDefinition { Width = new GridLength(70) };
                 product.ColumnDefinitions.Add(column0);
                 product.ColumnDefinitions.Add(column1);
                 product.RowDefinitions.Add(row2);
@@ -406,7 +468,8 @@ namespace POS_UI
                     
                    
                 };
-                
+                productName.MouseDoubleClick += new MouseButtonEventHandler(onProductDoubleClick);
+
                 Grid.SetColumn(productName, 0);
                 Grid.SetRow(productName, 0);
                 product.Children.Add(productName);
@@ -420,8 +483,9 @@ namespace POS_UI
                     HorizontalContentAlignment = HorizontalAlignment.Left,
                     BorderBrush = new SolidColorBrush { Color = new System.Windows.Media.Color { A = 100, R = 255, G = 255, B = 255 } },
                 //    BorderThickness = new Thickness(0, 0, 0, 2),
-                    Width = 250
+                    
                 };
+               
                 Grid.SetColumn(productPrice, 1);
                 Grid.SetRow(productPrice, 0);
                 product.Children.Add(productPrice);
@@ -433,13 +497,30 @@ namespace POS_UI
 
                     Foreground = new SolidColorBrush { Color = new System.Windows.Media.Color { A = 200, R = 255, G = 255, B = 255 } },
                     VerticalAlignment = VerticalAlignment.Center,
-                    HorizontalAlignment = HorizontalAlignment.Center,
+                    HorizontalAlignment = HorizontalAlignment.Left,
                     TextWrapping = new TextWrapping { },
                     Width = 250
                     , FontStyle = FontStyles.Italic
                 };
-                productDescription.MaxWidth = 185;
-               
+                Label productAllergen = new Label
+                {
+                    Content = $"Allergens:\n{allergenCRUD.Read(selectedCategory.AllergenID)}",
+                    Foreground = new SolidColorBrush { Color = new System.Windows.Media.Color { A = 255, R = 128, G = 0, B = 0 } },
+                    VerticalAlignment = VerticalAlignment.Center,
+                    VerticalContentAlignment = VerticalAlignment.Center,
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    HorizontalContentAlignment = HorizontalAlignment.Left,
+                    BorderBrush = new SolidColorBrush { Color = new System.Windows.Media.Color { A = 100, R = 255, G = 255, B = 255 } },
+                    //    BorderThickness = new Thickness(0, 0, 0, 2),
+
+                };
+
+                Grid.SetColumn(productAllergen, 1);
+                Grid.SetRow(productAllergen, 1);
+                product.Children.Add(productAllergen);
+
+                productDescription.MaxWidth = 150;
+                Grid.SetColumnSpan(productDescription, 2);
                 Grid.SetColumn(productDescription, 0);
                 Grid.SetRow(productDescription, 1);
                 product.Children.Add(productDescription);
@@ -449,10 +530,68 @@ namespace POS_UI
                 Grid.SetRow(border, 0);
                 Grid.SetRowSpan(border, 2);
                 product.Children.Add(border);
+
+                
                 productsList.Items.Add(product);
             }
+           
         }
 
+        public void RefreshOrderList(Table selectedTable)
+        {
+            Style style = this.FindResource("usersListBoxStyle") as Style;
+            TotalPrice = 0;
+            TotalItems = 0;
+            if (orderCRUD.GetOrders(selectedTable.TableID).Count == 0) // if there are no any orders in the opened table
+            {
+                orderCRUD.Create(selectedTable.TableID);
+
+                orderCRUD.SelectOrder(selectedTable.TableID);
+                newOrder.Add(orderCRUD.selectedOrder, new List<Product>());
+                
+            }
+            else { orderCRUD.SelectOrder(selectedTable.TableID); }
+           
+          
+
+            OrderList.Items.Clear();
+            newOrder[orderCRUD.selectedOrder].Clear();
+
+            foreach (var item in orderCRUD.GetProducts(orderCRUD.selectedOrder.OrderID))
+            {
+                OrderList.Items.Add(new ListBoxItem { Content = item.ProductName, Style = style });
+                TotalItems++;
+                TotalPrice += item.ProductPrice;
+            }
+
+            
+            OrderTotalItems.Content = TotalItems;
+            orderTotalPrice.Content = $"£ {Math.Round(TotalPrice)}";
+
+
+        }
+
+        public void RefreshOrderList(Order selectedOrder, Product selectedProduct)
+        {
+            Style style = this.FindResource("usersListBoxStyle") as Style;
+            // selectedOrder.
+            
+            orderCRUD.selectedOrder.currentProducts.Add(selectedProduct);
+            sendOrderButton.Opacity = 1; 
+            newOrder[orderCRUD.selectedOrder].Add(selectedProduct);
+            OrderList.Items.Add(new ListBoxItem { Content = productCRUD.selectedProduct.ProductName });
+            TotalItems++;
+            TotalPrice += selectedProduct.ProductPrice;
+            OrderTotalItems.Content = TotalItems;
+            orderTotalPrice.Content = $"£ {Math.Round(TotalPrice)}";
+        }
+        
+
+        private void onProductDoubleClick(object sender, RoutedEventArgs e)
+        {
+            productCRUD.SelectProduct((sender as Label).Content.ToString());
+            RefreshOrderList(orderCRUD.selectedOrder, productCRUD.selectedProduct);
+        }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             AddUserPopUp.IsOpen = true;
@@ -494,8 +633,10 @@ namespace POS_UI
         {
             if (userCRUD.selectedUser.UserPassword == Password.Password)
             {
+                (tableSiteList.Items[0] as ListBoxItem).IsSelected = true;
                 userLogInGrid.Width = new GridLength(0);
                 tablesGrid.Width = new GridLength(100, GridUnitType.Star);
+                usersList.IsEnabled = false;
                 loggedIn = true;
                 nameLabel.Content = userCRUD.selectedUser.UserName;
                 RefreshUsersList();
@@ -547,9 +688,6 @@ namespace POS_UI
         private void ReserveTable_Click(object sender, RoutedEventArgs e)
         {
             reservationPanel.IsEnabled = true;
-           // tableCRUD.UpdateTableStatus(tableCRUD.selectedTable.TableName, 1);
-           // tableCRUD.CancelReservation(tableCRUD.selectedTable.TableID);
-           // RefreshTablesList(selectedTableSite);
             doubleClickOnTable.IsOpen = false;
         }
 
@@ -596,6 +734,7 @@ namespace POS_UI
         {
             if ((sender as ListBox).SelectedItem != null)
             {
+
                 selectedTableSite = ((sender as ListBox).SelectedItem as ListBoxItem).Content.ToString();
                 RefreshTablesList(selectedTableSite);
             }
@@ -628,11 +767,11 @@ namespace POS_UI
             }
             
         }
-
+        //reserveTable
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             tableCRUD.Reserve(tableCRUD.selectedTable.TableID, ReservationName.Text, ReservationPhone.Text, (DateTime)ReservationdatePicker.SelectedDate, int.Parse(ReservationNoOfGuests.Text));
-            tableCRUD.UpdateTableStatus(tableCRUD.selectedTable.TableName, 2);
+            tableCRUD.UpdateTableStatus(tableCRUD.selectedTable.TableName, 3);
             RefreshTablesList(selectedTableSite);
             reservationPanel.IsEnabled = false;
 
@@ -663,8 +802,10 @@ namespace POS_UI
 
         private void productCategoriesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            productsList.Items.Clear();
             var selectedCategory = ((sender as ListBox).SelectedItem as ListBoxItem).Content.ToString();
             RefreshSubcategoryList(selectedCategory);
+            (subcategoryList.Items[0] as ListBoxItem).IsSelected = true;
             //subcategoryList
         }
 
@@ -680,9 +821,62 @@ namespace POS_UI
 
         private void OpenTable_Click(object sender, RoutedEventArgs e)
         {
+
+            RefreshOrderList(tableCRUD.selectedTable);
+            orderTableName.Content = tableCRUD.selectedTable.TableName;
+            UserName.Text = userCRUD.selectedUser.UserName;
+            OrderPanel.IsEnabled = true;
             tablesGrid.Width = new GridLength(0);
             doubleClickOnTable.IsOpen = false;
             productsGrid.Width = new GridLength(100, GridUnitType.Star);
+            (productCategoriesListBox.Items[1] as ListBoxItem).IsSelected = true;
+            (subcategoryList.Items[0] as ListBoxItem).IsSelected = true;
+            RefreshTablesList(selectedTableSite);
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            productsGrid.Width = new GridLength(0);
+            OrderPanel.IsEnabled = false;
+            tablesGrid.Width = new GridLength(100, GridUnitType.Star);
+
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            orderCRUD.SendItemsToPrinters(orderCRUD.selectedOrder, newOrder[orderCRUD.selectedOrder]);
+            newOrder[orderCRUD.selectedOrder].Clear();
+            productsGrid.Width = new GridLength(0);
+            OrderPanel.IsEnabled = false;
+            tablesGrid.Width = new GridLength(100, GridUnitType.Star);
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            orderCRUD.PrintBill(orderCRUD.selectedOrder, TotalItems, TotalPrice);
+            productsGrid.Width = new GridLength(0);
+            OrderPanel.IsEnabled = false;
+            tablesGrid.Width = new GridLength(100, GridUnitType.Star);
+            orderCRUD.Remove(orderCRUD.selectedOrder.OrderID);
+            RefreshTablesList(selectedTableSite);
+
+
+        }
+        //CancelReservation
+        private void Button_Click_6(object sender, RoutedEventArgs e)
+        {
+            tableCRUD.CancelReservation(tableCRUD.selectedReservation.ReservationID);
+            RefreshReservationDetails( tableCRUD.selectedTable);
+            RefreshTablesList(selectedTableSite);
+          //  rese
+        }
+
+        private void reservationListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if ((sender as ListBox).SelectedItem!=null) {
+                var item = ((sender as ListBox).SelectedItem as Grid).Name;
+                tableCRUD.SelectReservation(item);
+            }
         }
     }
 }

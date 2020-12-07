@@ -22,4 +22,8 @@
     <ProjectReference Include="..\POS_Model\POS_Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Printer\" />
+  </ItemGroup>
+
 </Project>

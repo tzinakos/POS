@@ -17,6 +17,10 @@ namespace POS_Model
         public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Allergen> Allergens { get; set; }
+
+      
+
+
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB; Initial Catalog=Pos;");
 
@@ -99,7 +103,10 @@ namespace POS_Model
         public int TableID { get; set; }
         public Table Table { get; set; }
 
-        public virtual ICollection<Product> Products {get;set;}
+        
+        public List<Product> currentProducts = new List<Product>();
+       
+      
 
         
     }
@@ -113,6 +120,8 @@ namespace POS_Model
 
         public List<Product> Products = new List<Product>();
     }
+
+   
 
     public class Product
     {
@@ -130,8 +139,10 @@ namespace POS_Model
         public int AllergenID { get; set; }
         public Allergen Allergen { get; set; }
 
-        public virtual ICollection<Order> Orders{ get; set; }
-       // public List<Allergen> Allergens = new List<Allergen>();
+        // public List<Order> curentOrders { get; set; }
+        // public virtual ICollection<Order> Orders {get;set;}
+        // public List<Allergen> Allergens = new List<Allergen>();
+       
     }
 
     public class Allergen

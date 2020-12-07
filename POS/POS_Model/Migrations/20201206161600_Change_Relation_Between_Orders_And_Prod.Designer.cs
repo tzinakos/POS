@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using POS_Model;
 
 namespace POS_Model.Migrations
 {
     [DbContext(typeof(PosContext))]
-    partial class PosContextModelSnapshot : ModelSnapshot
+    [Migration("20201206161600_Change_Relation_Between_Orders_And_Prod")]
+    partial class Change_Relation_Between_Orders_And_Prod
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,14 +46,31 @@ namespace POS_Model.Migrations
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("OrderProductID")
+                        .HasColumnType("int");
+
                     b.Property<int>("TableID")
                         .HasColumnType("int");
 
                     b.HasKey("OrderID");
 
+                    b.HasIndex("OrderProductID");
+
                     b.HasIndex("TableID");
 
                     b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("POS_Model.OrderProduct", b =>
+                {
+                    b.Property<int>("OrderProductID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.HasKey("OrderProductID");
+
+                    b.ToTable("orderProducts");
                 });
 
             modelBuilder.Entity("POS_Model.Product", b =>
@@ -62,6 +81,9 @@ namespace POS_Model.Migrations
                         .UseIdentityColumn();
 
                     b.Property<int>("AllergenID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderProductID")
                         .HasColumnType("int");
 
                     b.Property<int>("ProductCategoryID")
@@ -82,6 +104,8 @@ namespace POS_Model.Migrations
                     b.HasKey("ProductID");
 
                     b.HasIndex("AllergenID");
+
+                    b.HasIndex("OrderProductID");
 
                     b.HasIndex("ProductCategoryID");
 
@@ -227,11 +251,19 @@ namespace POS_Model.Migrations
 
             modelBuilder.Entity("POS_Model.Order", b =>
                 {
+                    b.HasOne("POS_Model.OrderProduct", "OrderProduct")
+                        .WithMany()
+                        .HasForeignKey("OrderProductID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("POS_Model.Table", "Table")
                         .WithMany()
                         .HasForeignKey("TableID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("OrderProduct");
 
                     b.Navigation("Table");
                 });
@@ -244,6 +276,12 @@ namespace POS_Model.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("POS_Model.OrderProduct", "OrderProduct")
+                        .WithMany()
+                        .HasForeignKey("OrderProductID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("POS_Model.ProductCategory", "ProductCategory")
                         .WithMany()
                         .HasForeignKey("ProductCategoryID")
@@ -251,6 +289,8 @@ namespace POS_Model.Migrations
                         .IsRequired();
 
                     b.Navigation("Allergen");
+
+                    b.Navigation("OrderProduct");
 
                     b.Navigation("ProductCategory");
                 });

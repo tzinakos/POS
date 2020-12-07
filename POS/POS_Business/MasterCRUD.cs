@@ -485,13 +485,15 @@ namespace POS_Business
                 //db.Allergens.Add(nuts);
                 //db.Allergens.Add(Milk);
                 //db.SaveChanges();
-
+                //db.TableStatuses.Add(new TableStatus { TableStatusName = "Reserved" });
+                //db.SaveChanges();
             }
 
         }
     }
     public abstract class MasterCRUD
     {
+        
         public List<Allergen> allergenList = new List<Allergen>();
         public List<Table> tablesList = new List<Table>();
         public List<User> usersList = new List<User>();
@@ -506,6 +508,9 @@ namespace POS_Business
         public Allergen selectedAllergen { get; set; }
         public ProductCategory selectedProductCategory { get; set; }
         public Product selectedProduct { get; set; }
+        public Order selectedOrder { get; set; }
+
+        public Reservation selectedReservation { get; set; }
 
         public abstract void Read();
 

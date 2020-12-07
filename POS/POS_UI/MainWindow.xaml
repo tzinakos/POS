@@ -177,8 +177,133 @@
                     <ColumnDefinition Width="0" x:Name="tablesGrid" />
                     <ColumnDefinition Width="0" x:Name="productsGrid"/>
                     <ColumnDefinition Width="auto" x:Name="reservationDetailsGrid"/>
-                    <ColumnDefinition Width="0" x:Name="orderGrid"/>
+                    <ColumnDefinition Width="auto" x:Name="orderGrid"/>
                 </Grid.ColumnDefinitions>
+                
+                
+                <!--Order Panel-->
+                <StackPanel Style="{DynamicResource StackPanelStyle1}" Grid.Column="3" Background="#1E2124" 
+                            x:Name="OrderPanel" IsEnabled="False" HorizontalAlignment="Right" Margin="2,2,0,0">
+
+                    <Grid Height="450" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions >
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Content="Table 1" x:Name="orderTableName"
+                               HorizontalContentAlignment="Center"
+                               FontSize="20" Foreground="White">
+                        </Label>
+
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="User:"
+                               HorizontalContentAlignment="left"
+                               VerticalContentAlignment="Bottom"
+                                   VerticalAlignment="Bottom"
+                               Height="30" Margin="5,0,0,0" 
+                               FontSize="15" Foreground="White"
+                                   BorderThickness="0,0,0,2" 
+                                     BorderBrush="Green">
+
+                            </Label>
+
+                            <TextBox Grid.Column="1" x:Name="UserName"
+                                     HorizontalAlignment="Stretch" Margin="0,0,5,0" 
+                                     HorizontalContentAlignment="Center"
+                                     VerticalContentAlignment="Bottom"
+                                     FontSize="15" Foreground="White"
+                                     Background="Transparent" IsReadOnly="True"
+                                     BorderThickness="0,0,0,2" Height="30"
+                                     BorderBrush="Green">
+
+                            </TextBox>
+                        </Grid>
+                        <ListBox Grid.Row="2" x:Name="OrderList" Margin="5" BorderBrush="Green" BorderThickness="0,0,0,3"
+                                 Background="Transparent" Height="209" Foreground="White">
+                        </ListBox>
+                        <Grid Grid.Row="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="Total Items"
+                               HorizontalContentAlignment="left" 
+                               VerticalContentAlignment="Bottom"
+                                   VerticalAlignment="Bottom"
+                               Height="30" Margin="5,0,0,0" 
+                               FontSize="15" Foreground="White"
+                                   BorderThickness="0,0,0,2" 
+                                     BorderBrush="Green">
+
+                                    </Label>
+                                    <Label Grid.Column="1" Content="Total Price"
+                               HorizontalContentAlignment="left" 
+                               VerticalContentAlignment="Bottom"
+                                   VerticalAlignment="Bottom"
+                               Height="30" Margin="5,0,0,0" 
+                               FontSize="15" Foreground="White"
+                                   BorderThickness="0,0,0,2" 
+                                     BorderBrush="Green">
+
+                                    </Label>
+                        </Grid>
+                        <Border Grid.Row="4" BorderBrush="Black" BorderThickness="0,0,0,2">
+                            <Grid Grid.Row="4">
+
+                                <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Content="5" x:Name="OrderTotalItems"
+                               HorizontalContentAlignment="Center"
+                               VerticalContentAlignment="Bottom"
+                                   VerticalAlignment="Bottom"
+                               Height="30" Margin="5,0,0,0" 
+                               FontSize="15" Foreground="White">
+
+                            </Label>
+                            <Label Grid.Column="1" Content="£30"
+                               HorizontalContentAlignment="Center"
+                               VerticalContentAlignment="Bottom"
+                                   VerticalAlignment="Bottom"
+                               Height="30" Margin="5,0,0,0" x:Name="orderTotalPrice"
+                               FontSize="15" Foreground="White">
+
+                            </Label>
+                           
+                        </Grid>
+                        </Border>
+                        <Button Grid.Row="5" Content="Send Order" x:Name="sendOrderButton"
+                                Height="30" Foreground="White"
+                                Background="Transparent"
+                                BorderBrush="Green" Opacity=".5"
+                                BorderThickness="1.5" Margin="5" Click="Button_Click_4" >
+                        </Button>
+                        <Button Grid.Row="6" Content="Print Bill"
+                                Height="30" Foreground="White"
+                                Background="Transparent"
+                                BorderBrush="Red"
+                                BorderThickness="1.5" Margin="5" Click="Button_Click_5" >
+                        </Button>
+                        
+                    </Grid>
+
+                </StackPanel>
+                <!--End Of Order Panel-->
+                
                 
                 <!--Products Grid-->
                 <Grid Grid.Column="2" >
@@ -206,7 +331,7 @@
                         <!-- ListBox of Products-->
                         <ListBox x:Name="productsList" Grid.Column="1" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                              VerticalAlignment="Top" Margin="10,10,10,10" BorderThickness="0"  Width="auto"
-                             Background="Transparent" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                             Background="Transparent" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" >
 
 
                             <ListBox.ItemsPanel >
@@ -239,9 +364,24 @@
 
                             </ItemsPanelTemplate>
                         </ListBox.ItemsPanel>
+                        <Button Width="80" Height="80" BorderThickness="0,0,2,0" BorderBrush="Black" VerticalContentAlignment="Center"
+                                VerticalAlignment="Center" Click="Button_Click_3">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/right menu buttonNew.png" Stretch="UniformToFill" TileMode="None">
+                                    <ImageBrush.RelativeTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                                            <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                            <RotateTransform Angle="180" CenterY="0.5" CenterX="0.5"/>
+                                            <TranslateTransform/>
+                                        </TransformGroup>
+                                    </ImageBrush.RelativeTransform>
+                                </ImageBrush>
+                            </Button.Background>
+                        </Button>
                         <ListBoxItem Margin="0" Padding="0" 
                                      BorderThickness="0,0,0,2" BorderBrush="Green"
-                                     Content="Dips / Cold Starters" MinWidth="200" HorizontalContentAlignment="Center"/>
+                                     Content="Starters" MinWidth="200" HorizontalContentAlignment="Center"/>
                         <ListBoxItem Margin="0,0,0,0" MinWidth="200" Content="Main"
                                      HorizontalContentAlignment="Center" BorderThickness="0,0,0,2" BorderBrush="Green"/>
                         <ListBoxItem Margin="0" MinWidth="200"  Content="Deserts" 
@@ -793,7 +933,7 @@
                             <ListBox Grid.Row="1" Background="Transparent" x:Name="reservationListBox"
                                      VerticalContentAlignment="Top" VerticalAlignment="Top" Margin="10"
                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
-                                     BorderThickness="0,0,0,2" BorderBrush="Green">
+                                     BorderThickness="0,0,0,2" BorderBrush="Green" SelectionChanged="reservationListBox_SelectionChanged" >
                             </ListBox>
 
                             <Grid Grid.Row="2">
@@ -805,7 +945,7 @@
                                 <Button Grid.Column="0" Content="Cancel Reservation"
                                         Foreground="white" Background="Transparent"
                                         BorderBrush="Red" Width="120" Height="40" 
-                                        BorderThickness="0,0,0,2">
+                                        BorderThickness="0,0,0,2" Click="Button_Click_6" >
 
                                 </Button>
                                 <Button Grid.Column="1" Content="Close"
