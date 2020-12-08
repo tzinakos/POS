@@ -84,5 +84,14 @@ namespace POS_Business
                         select p).ToList();
             }
         }
+
+        public void SetProductQuantity(Product selectedProduct, int quantity)
+        {
+            using (var db = new PosContext())
+            {
+                db.Products.Find(selectedProduct.ProductID).ProductQuantity = quantity;
+                db.SaveChanges();
+            }
+        }
     }
 }

@@ -25,7 +25,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="POS_Model.Table" Collapsed="true">
-    <Position X="8.5" Y="2" Width="1.75" />
+    <Position X="8.25" Y="2.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAEAACAAAAAgAAAAEAAAAAgAAAAMCAAAAAAAAQAAgAA=</HashCode>
       <FileName>Model.cs</FileName>
@@ -52,10 +52,10 @@
       <Property Name="Table" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="POS_Model.Order">
-    <Position X="6.25" Y="2" Width="1.5" />
+  <Class Name="POS_Model.Order" Collapsed="true">
+    <Position X="5.5" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>CAAAABAAAAAAAAAAAAAAQAAAAAAEAAAAAAAAAAAAAAQ=</HashCode>
+      <HashCode>CAAAABAAAAAAAAAAAAAAQAAAAAAEAAAAAAAAAAAAIAA=</HashCode>
       <FileName>Model.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -72,7 +72,7 @@
   <Class Name="POS_Model.Product" Collapsed="true">
     <Position X="3" Y="0.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>EAEAAAAAAAAAAgAAAAACgAABAAAAAAAAAAAAAEAIGAA=</HashCode>
+      <HashCode>EAAAAAAAAAAAAgAAAAACgAABAAAAAAAAAAAAAEAIGAA=</HashCode>
       <FileName>Model.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -87,9 +87,5 @@
       <FileName>Model.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="System.Collections.Generic.ICollection&lt;T&gt;" Collapsed="true">
-    <Position X="6.25" Y="0.5" Width="1.5" />
-    <TypeIdentifier />
-  </Interface>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

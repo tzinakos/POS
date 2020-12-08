@@ -52,12 +52,26 @@ namespace POS_UI
                     usersList.Items.Add(new ListBoxItem { Content = x.UserName });
                 }
 
-                for (int i = 2; i < usersList.Items.Count; i++)
+                for (int i = 1; i < usersList.Items.Count; i++)
                 {
                     
                     (usersList.Items[i] as ListBoxItem).Style = style;
                 }
-
+                Button AddUser = new Button
+                {
+                    Content = "Add User",
+                    BorderThickness = new Thickness(0, 0, 0, 2),
+                    Width = 120,
+                    Height = 40,
+                    Foreground = Brushes.White,
+                    Background = new SolidColorBrush { Color = new Color { A = 0, G = 128, R = 0, B = 0 } },
+                    BorderBrush = new SolidColorBrush { Color = new Color { A = 255, G = 255, R = 0, B = 0 } },
+                    VerticalAlignment = VerticalAlignment.Center,
+                    VerticalContentAlignment = VerticalAlignment.Center
+                };
+                AddUser.Click += new RoutedEventHandler(Button_Click);
+                usersList.Items.Add(AddUser);
+              
             }
             else
             {
@@ -94,8 +108,13 @@ namespace POS_UI
                     VerticalAlignment = VerticalAlignment.Center,
                     VerticalContentAlignment = VerticalAlignment.Center
                 };
+
+               
                 changePassword.Click += new RoutedEventHandler(ChangePasswordClick);
+                
                 LogOut.Click += new RoutedEventHandler(LogOutClick);
+               
+               
                 usersList.Items.Add(LogOut);
                 usersList.Items.Add(userRole);
                 usersList.Items.Add(userPoints);
@@ -120,6 +139,10 @@ namespace POS_UI
             userLogInGrid.Width = new GridLength(100, GridUnitType.Star);
         }
 
+        private void AddUserP(object sender, RoutedEventArgs e)
+        {
+            AddUserPopUp.IsEnabled = true;
+        }
         public void RefreshTablesList(string tableSite)
         {
 
@@ -445,98 +468,208 @@ namespace POS_UI
             productsList.Items.Clear();
             foreach (var selectedCategory in productCRUD.GetProducts(selectedProductCategory))
             {
-                Grid product = new Grid { Width = 250, Height = 150, Margin = new Thickness(10,10,10,10), Background = new SolidColorBrush { Color = new Color { A=200,R=30,G=33,B=36} } };
-                RowDefinition row1 = new RowDefinition { Height = new GridLength(60)};
-                RowDefinition row2 = new RowDefinition { Height = new GridLength(90) };
-                ColumnDefinition column0 = new ColumnDefinition { Width = new GridLength(180) };
-                ColumnDefinition column1 = new ColumnDefinition { Width = new GridLength(70) };
-                product.ColumnDefinitions.Add(column0);
-                product.ColumnDefinitions.Add(column1);
-                product.RowDefinitions.Add(row2);
-                product.RowDefinitions.Add(row1);
-
-                Label productName = new Label
+                if (selectedCategory.ProductQuantity != 0)
                 {
-                    Content = selectedCategory.ProductName,
-                    Foreground = new SolidColorBrush { Color = new System.Windows.Media.Color { A = 200, R = 255, G = 255, B = 255 } },
-                    VerticalAlignment = VerticalAlignment.Center,
-                    VerticalContentAlignment = VerticalAlignment.Center,
-                    HorizontalAlignment = HorizontalAlignment.Left,
-                    HorizontalContentAlignment = HorizontalAlignment.Left, FontSize = 20,
-                    BorderBrush = new SolidColorBrush { Color = new System.Windows.Media.Color { A = 100, R = 255, G = 255, B = 255 } }
-               //     BorderThickness = new Thickness(0, 0, 0, 2),
-                    
+                    Grid product = new Grid { Width = 250, Height = 150, Margin = new Thickness(10, 10, 10, 10), Background = new SolidColorBrush { Color = new Color { A = 200, R = 30, G = 33, B = 36 } } };
+                    RowDefinition row1 = new RowDefinition { Height = new GridLength(60) };
+                    RowDefinition row2 = new RowDefinition { Height = new GridLength(90) };
+                    ColumnDefinition column0 = new ColumnDefinition { Width = new GridLength(180) };
+                    ColumnDefinition column1 = new ColumnDefinition { Width = new GridLength(70) };
+                    product.ColumnDefinitions.Add(column0);
+                    product.ColumnDefinitions.Add(column1);
+                    product.RowDefinitions.Add(row2);
+                    product.RowDefinitions.Add(row1);
+
+                    Label productName = new Label
+                    {
+                        Content = selectedCategory.ProductName,
+                        Foreground = new SolidColorBrush { Color = new System.Windows.Media.Color { A = 200, R = 255, G = 255, B = 255 } },
+                        VerticalAlignment = VerticalAlignment.Center,
+                        VerticalContentAlignment = VerticalAlignment.Center,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        HorizontalContentAlignment = HorizontalAlignment.Left,
+                        FontSize = 20,
+                        BorderBrush = new SolidColorBrush { Color = new System.Windows.Media.Color { A = 100, R = 255, G = 255, B = 255 } }
+                        //     BorderThickness = new Thickness(0, 0, 0, 2),
+
+
+                    };
+                    productName.MouseDoubleClick += new MouseButtonEventHandler(onProductDoubleClick);
+
+                    Grid.SetColumn(productName, 0);
+                    Grid.SetRow(productName, 0);
+                    product.Children.Add(productName);
+                    Label productPrice = new Label
+                    {
+                        Content = $"Price:\n£{selectedCategory.ProductPrice}",
+                        Foreground = new SolidColorBrush { Color = new System.Windows.Media.Color { A = 255, R = 0, G = 128, B = 0 } },
+                        VerticalAlignment = VerticalAlignment.Center,
+                        VerticalContentAlignment = VerticalAlignment.Center,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        HorizontalContentAlignment = HorizontalAlignment.Left,
+                        BorderBrush = new SolidColorBrush { Color = new System.Windows.Media.Color { A = 100, R = 255, G = 255, B = 255 } },
+                        //    BorderThickness = new Thickness(0, 0, 0, 2),
+
+                    };
+
+                    Grid.SetColumn(productPrice, 1);
+                    Grid.SetRow(productPrice, 0);
+                    product.Children.Add(productPrice);
+
+                    TextBlock productDescription = new TextBlock
+                    {
+
+                        Text = $"Description:\n\"{selectedCategory.ProductDescription}\"",
+
+                        Foreground = new SolidColorBrush { Color = new System.Windows.Media.Color { A = 200, R = 255, G = 255, B = 255 } },
+                        VerticalAlignment = VerticalAlignment.Center,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        TextWrapping = new TextWrapping { },
+                        Width = 250
+                        ,
+                        FontStyle = FontStyles.Italic
+                    };
+                    Label productAllergen = new Label
+                    {
+                        Content = $"Allergens:\n{allergenCRUD.Read(selectedCategory.AllergenID)}",
+                        Foreground = new SolidColorBrush { Color = new System.Windows.Media.Color { A = 255, R = 128, G = 0, B = 0 } },
+                        VerticalAlignment = VerticalAlignment.Center,
+                        VerticalContentAlignment = VerticalAlignment.Center,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        HorizontalContentAlignment = HorizontalAlignment.Left,
+                        BorderBrush = new SolidColorBrush { Color = new System.Windows.Media.Color { A = 100, R = 255, G = 255, B = 255 } },
+                        //    BorderThickness = new Thickness(0, 0, 0, 2),
+
+                    };
+
+                    Grid.SetColumn(productAllergen, 1);
+                    Grid.SetRow(productAllergen, 1);
+                    product.Children.Add(productAllergen);
+
+                    productDescription.MaxWidth = 150;
+                    Grid.SetColumnSpan(productDescription, 2);
+                    Grid.SetColumn(productDescription, 0);
+                    Grid.SetRow(productDescription, 1);
+                    product.Children.Add(productDescription);
+                    Border border = new Border { Margin = new Thickness(-3), BorderThickness = new Thickness(2), BorderBrush = new SolidColorBrush { Color = new System.Windows.Media.Color { A = 100, R = 0, G = 128, B = 0 } } };
+                    Grid.SetColumn(border, 0);
+                    Grid.SetColumnSpan(border, 2);
+                    Grid.SetRow(border, 0);
+                    Grid.SetRowSpan(border, 2);
+                    product.Children.Add(border);
+
+                    product.MouseRightButtonDown += new MouseButtonEventHandler(makeProuctUnavailable);
+                    productsList.Items.Add(product);
+                }
+                else
+                {
+                    Grid product = new Grid { Width = 250, Height = 150, Margin = new Thickness(10, 10, 10, 10), Background = new SolidColorBrush { Color = new Color { A = 50, R = 30, G = 33, B = 36 } } };
+                    RowDefinition row1 = new RowDefinition { Height = new GridLength(60) };
+                    RowDefinition row2 = new RowDefinition { Height = new GridLength(90) };
+                    ColumnDefinition column0 = new ColumnDefinition { Width = new GridLength(180) };
+                    ColumnDefinition column1 = new ColumnDefinition { Width = new GridLength(70) };
+                    product.ColumnDefinitions.Add(column0);
+                    product.ColumnDefinitions.Add(column1);
+                    product.RowDefinitions.Add(row2);
+                    product.RowDefinitions.Add(row1);
+
+                    Label productName = new Label
+                    {
+                        Content = selectedCategory.ProductName,
+                        Foreground = new SolidColorBrush { Color = new System.Windows.Media.Color { A = 50, R = 255, G = 255, B = 255 } },
+                        VerticalAlignment = VerticalAlignment.Center,
+                        VerticalContentAlignment = VerticalAlignment.Center,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        HorizontalContentAlignment = HorizontalAlignment.Left,
+                        FontSize = 20,
+                        BorderBrush = new SolidColorBrush { Color = new System.Windows.Media.Color { A = 50, R = 255, G = 255, B = 255 } }
+                        //     BorderThickness = new Thickness(0, 0, 0, 2),
+
+
+                    };
                    
-                };
-                productName.MouseDoubleClick += new MouseButtonEventHandler(onProductDoubleClick);
 
-                Grid.SetColumn(productName, 0);
-                Grid.SetRow(productName, 0);
-                product.Children.Add(productName);
-                Label productPrice = new Label
-                {
-                    Content = $"Price:\n£{selectedCategory.ProductPrice}",
-                    Foreground = new SolidColorBrush { Color = new System.Windows.Media.Color { A = 255, R = 0, G = 128, B = 0 } },
-                    VerticalAlignment = VerticalAlignment.Center,
-                    VerticalContentAlignment = VerticalAlignment.Center,
-                    HorizontalAlignment = HorizontalAlignment.Left,
-                    HorizontalContentAlignment = HorizontalAlignment.Left,
-                    BorderBrush = new SolidColorBrush { Color = new System.Windows.Media.Color { A = 100, R = 255, G = 255, B = 255 } },
-                //    BorderThickness = new Thickness(0, 0, 0, 2),
-                    
-                };
-               
-                Grid.SetColumn(productPrice, 1);
-                Grid.SetRow(productPrice, 0);
-                product.Children.Add(productPrice);
+                    Grid.SetColumn(productName, 0);
+                    Grid.SetRow(productName, 0);
+                    product.Children.Add(productName);
+                    Label productPrice = new Label
+                    {
+                        Content = $"Price:\n£{selectedCategory.ProductPrice}",
+                        Foreground = new SolidColorBrush { Color = new System.Windows.Media.Color { A = 50, R = 0, G = 128, B = 0 } },
+                        VerticalAlignment = VerticalAlignment.Center,
+                        VerticalContentAlignment = VerticalAlignment.Center,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        HorizontalContentAlignment = HorizontalAlignment.Left,
+                        BorderBrush = new SolidColorBrush { Color = new System.Windows.Media.Color { A = 50, R = 255, G = 255, B = 255 } },
+                       
 
-                TextBlock productDescription = new TextBlock
-                {
+                    };
 
-                    Text = $"Description:\n\"{selectedCategory.ProductDescription}\"",
+                    Grid.SetColumn(productPrice, 1);
+                    Grid.SetRow(productPrice, 0);
+                    product.Children.Add(productPrice);
 
-                    Foreground = new SolidColorBrush { Color = new System.Windows.Media.Color { A = 200, R = 255, G = 255, B = 255 } },
-                    VerticalAlignment = VerticalAlignment.Center,
-                    HorizontalAlignment = HorizontalAlignment.Left,
-                    TextWrapping = new TextWrapping { },
-                    Width = 250
-                    , FontStyle = FontStyles.Italic
-                };
-                Label productAllergen = new Label
-                {
-                    Content = $"Allergens:\n{allergenCRUD.Read(selectedCategory.AllergenID)}",
-                    Foreground = new SolidColorBrush { Color = new System.Windows.Media.Color { A = 255, R = 128, G = 0, B = 0 } },
-                    VerticalAlignment = VerticalAlignment.Center,
-                    VerticalContentAlignment = VerticalAlignment.Center,
-                    HorizontalAlignment = HorizontalAlignment.Left,
-                    HorizontalContentAlignment = HorizontalAlignment.Left,
-                    BorderBrush = new SolidColorBrush { Color = new System.Windows.Media.Color { A = 100, R = 255, G = 255, B = 255 } },
-                    //    BorderThickness = new Thickness(0, 0, 0, 2),
+                    TextBlock productDescription = new TextBlock
+                    {
 
-                };
+                        Text = $"Description:\n\"{selectedCategory.ProductDescription}\"",
 
-                Grid.SetColumn(productAllergen, 1);
-                Grid.SetRow(productAllergen, 1);
-                product.Children.Add(productAllergen);
+                        Foreground = new SolidColorBrush { Color = new System.Windows.Media.Color { A = 50, R = 255, G = 255, B = 255 } },
+                        VerticalAlignment = VerticalAlignment.Center,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        TextWrapping = new TextWrapping { },
+                        Width = 250
+                        ,
+                        FontStyle = FontStyles.Italic
+                    };
+                    Label productAllergen = new Label
+                    {
+                        Content = $"Allergens:\n{allergenCRUD.Read(selectedCategory.AllergenID)}",
+                        Foreground = new SolidColorBrush { Color = new System.Windows.Media.Color { A = 50, R = 128, G = 0, B = 0 } },
+                        VerticalAlignment = VerticalAlignment.Center,
+                        VerticalContentAlignment = VerticalAlignment.Center,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        HorizontalContentAlignment = HorizontalAlignment.Left,
+                        BorderBrush = new SolidColorBrush { Color = new System.Windows.Media.Color { A = 50, R = 255, G = 255, B = 255 } },
+                        
 
-                productDescription.MaxWidth = 150;
-                Grid.SetColumnSpan(productDescription, 2);
-                Grid.SetColumn(productDescription, 0);
-                Grid.SetRow(productDescription, 1);
-                product.Children.Add(productDescription);
-                Border border = new Border {  Margin = new Thickness(-3) ,BorderThickness = new Thickness(2), BorderBrush = new SolidColorBrush { Color = new System.Windows.Media.Color { A = 100, R = 0, G = 128, B = 0 } } };
-                Grid.SetColumn(border, 0);
-                Grid.SetColumnSpan(border, 2);
-                Grid.SetRow(border, 0);
-                Grid.SetRowSpan(border, 2);
-                product.Children.Add(border);
+                    };
 
-                
-                productsList.Items.Add(product);
+                    Grid.SetColumn(productAllergen, 1);
+                    Grid.SetRow(productAllergen, 1);
+                    product.Children.Add(productAllergen);
+
+                    productDescription.MaxWidth = 150;
+                    Grid.SetColumnSpan(productDescription, 2);
+                    Grid.SetColumn(productDescription, 0);
+                    Grid.SetRow(productDescription, 1);
+                    product.Children.Add(productDescription);
+                    Border border = new Border { Margin = new Thickness(-3), BorderThickness = new Thickness(2), BorderBrush = new SolidColorBrush { Color = new System.Windows.Media.Color { A = 50, R = 0, G = 128, B = 0 } } };
+                    Grid.SetColumn(border, 0);
+                    Grid.SetColumnSpan(border, 2);
+                    Grid.SetRow(border, 0);
+                    Grid.SetRowSpan(border, 2);
+                    product.Children.Add(border);
+
+                    product.MouseRightButtonDown += new MouseButtonEventHandler(makeProductAvailable);
+                    productsList.Items.Add(product);
+                }
             }
            
         }
 
+        private void makeProductAvailable(object sender, MouseButtonEventArgs e)
+        {
+            productCRUD.SetProductQuantity(productCRUD.selectedProduct, 100);
+            RefreshProducts(productCategoryCRUD.selectedProductCategory);
+        }
+
+        private void makeProuctUnavailable(Object sender, MouseButtonEventArgs e)
+        {
+            productCRUD.SetProductQuantity(productCRUD.selectedProduct, 0);
+            RefreshProducts(productCategoryCRUD.selectedProductCategory);
+
+        }
         public void RefreshOrderList(Table selectedTable)
         {
             Style style = this.FindResource("usersListBoxStyle") as Style;
@@ -844,7 +977,7 @@ namespace POS_UI
 
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
-            orderCRUD.SendItemsToPrinters(orderCRUD.selectedOrder, newOrder[orderCRUD.selectedOrder]);
+            orderCRUD.SendItemsToPrinters(orderCRUD.selectedOrder, newOrder[orderCRUD.selectedOrder], userCRUD.selectedUser.UserName);
             newOrder[orderCRUD.selectedOrder].Clear();
             productsGrid.Width = new GridLength(0);
             OrderPanel.IsEnabled = false;

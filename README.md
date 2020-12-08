@@ -23,6 +23,14 @@ The Application's purpose is to assist coffee shop's employees to manage both "s
 ## Class Diagrams
 ![Class Diagram](/Images/Class Diagram.png)
 
+## Application Sample Images
+![Application Log In Image](/Images/ApplicationImages/LogIn.png)
+![Application Orders  Image](/Images/ApplicationImages/Orders.png)
+![Application Unavailable Items  Image](/Images/ApplicationImages/Unavailable Items.png)
+![Application Reservation Info Image](/Images/ApplicationImages/ReservationInfo.png)
+![Application Reserve Image](/Images/ApplicationImages/Reserve.png)
+![Application Tables Image](/Images/ApplicationImages/tables.png)
+
 
 ## Sprints
 
@@ -169,9 +177,19 @@ By the end of this sprint I learned how to generate and populate Grids through C
 
 This Sprint is the final one; Thus, I aim to complete all remaining user stories and if I have the time to refactor my code and implement some minor design features. More Specific I need to complete User Stories:
 
-- [ ] Complete User Story 6.1
-- [ ] Complete User Story 6.2
+- [x] Complete User Story 6.1 (Users can make an item unavailable from GUI)
+- [x] Complete User Story 6.2 (As A developer i need to implement GUI Functionality such that users can make an item unavailable)
 
 #### Kanban Board at the end
+![Sprint4 Kanban Board at the end](/Images/KanbanBoard-Sprint5_End.png)
 #### Sprint Review
+
+In this final sprint I managed to complete all user stories from the sprint 5 and therefore all the user stories from the project backlog. Now the application has an extra functionality where users can make an item unavailable for placing it to an order.
+
 #### Sprint Retrospective
+
+With This Sprint I completed my project's scope functionality. Overall It was a great journey where I learnt a lot of things mainly in WPF and Entity framework. Although there is room for improvement, I am very exited and satisfied for the outcome.
+
+### Further Improvements
+
+When I continue working on this project I want to host my database online and instead of using CRUD methods that communicate to my local database, I would like to build APIs and deploy them so that my CRUD methods would sent HTTP requests and all the work would be done to the server. That way this application could run at any computer that uses Windows, Mac or Linux OS without the need of much processing power. Moreover I would like to improve UX and the UI. 

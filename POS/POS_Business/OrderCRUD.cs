@@ -9,6 +9,7 @@ namespace POS_Business
 {
     public class OrderCRUD : MasterCRUD
     {
+        UserCRUD userCRUD = new UserCRUD();
         public List<Order> currentOrders = new List<Order>();
         public override void Read()
         {
@@ -204,7 +205,7 @@ namespace POS_Business
             using (StreamWriter file = new StreamWriter(@"C:\Users\User\github\POS\POS\POS_Business\Printer\Bill.txt", true))
             {
                 file.WriteLine($"Total Items: {totalItems}");
-                file.WriteLine($"Total Price: {totalPrice}");
+                file.WriteLine($"Total Price: £ {totalPrice}");
                 file.WriteLine($"______________________");
                 file.WriteLine($"Thank You For Choosing Santa's Restaurant");
             }
@@ -213,7 +214,7 @@ namespace POS_Business
         }
             
 
-        public void SendItemsToPrinters(Order selectedOrder, List<Product> products)
+        public void SendItemsToPrinters(Order selectedOrder, List<Product> products, string selectedUserName)
         {
             List<string> starters = new List<string>();
 
@@ -261,8 +262,8 @@ namespace POS_Business
                 }
 
                 file.WriteLine($"Table: {tableName}\n__________");
-                file.WriteLine($"User: {userName}\n__________");
-
+                file.WriteLine($"User: {selectedUserName}\n__________");
+                file.WriteLine($"Order Time: {selectedOrder.OrderDate}\n__________");
 
             }
 
