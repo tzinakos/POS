@@ -21,12 +21,12 @@ The Application's purpose is to assist coffee shop's employees to manage both "s
 * The project should comply with the project description
 
 ## Class Diagrams
-![Class Diagram](/Images/Class Diagram.png)
+![Class Diagram](/Images/ClassDiagram.png)
 
 ## Application Sample Images
 ![Application Log In Image](/Images/ApplicationImages/LogIn.png)
 ![Application Orders  Image](/Images/ApplicationImages/Orders.png)
-![Application Unavailable Items  Image](/Images/ApplicationImages/Unavailable Items.png)
+![Application Unavailable Items  Image](/Images/ApplicationImages/UnavailableItems.png)
 ![Application Reservation Info Image](/Images/ApplicationImages/ReservationInfo.png)
 ![Application Reserve Image](/Images/ApplicationImages/Reserve.png)
 ![Application Tables Image](/Images/ApplicationImages/tables.png)
